@@ -6,13 +6,13 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:22:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/26 18:43:56 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/26 21:28:17 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cube3d.h"
 
-int main(void)
+int main(char **argv, int argc)
 {
-    ft_printf("hello world\n%c\n%d\n", ft_tolower('G'), 200000);
+    
 }
