@@ -6,14 +6,13 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 20:27:23 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/26 19:46:51 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/26 21:59:21 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <string.h>
-# include <stdio.h>
 # include <ctype.h>
 # include <stdlib.h>
 # include <unistd.h>

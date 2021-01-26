@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3d.h                                           :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/26 22:04:16 by sjacki           ###   ########.fr       */
+/*   Created: 2021/01/26 22:00:25 by sjacki            #+#    #+#             */
+/*   Updated: 2021/01/26 22:06:20 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-#define CUBE3D_H
+#include "../headers/cube3d.h"
 
-#include "../libft/header/libft.h"
-# include <fcntl.h>
-
-int             parser(int fd);
-
-#endif
+int             parser(int fd)
+{
+    ft_printf("fd is: %d\n", fd);
+    return (1);
+}

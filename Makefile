@@ -6,14 +6,14 @@
 #    By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 20:21:38 by sjacki            #+#    #+#              #
-#    Updated: 2021/01/26 19:49:32 by sjacki           ###   ########.fr        #
+#    Updated: 2021/01/26 22:05:19 by sjacki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= 		cube3d
 FLAG			=		-Wall -Wextra -Werror
 
-SRC				=		base/main.c 
+SRC				=		base/cube3d.c parser/parser.c
 
 MAKE_LIBFT		=		cd libft && make
 
@@ -42,4 +42,4 @@ re: fclean all
 run: re
 	make clean
 	clear
-	./$(NAME)
+	./$(NAME) map/map.cub
