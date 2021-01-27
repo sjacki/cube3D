@@ -6,12 +6,12 @@
 #    By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 20:21:38 by sjacki            #+#    #+#              #
-#    Updated: 2021/01/27 19:24:57 by sjacki           ###   ########.fr        #
+#    Updated: 2021/01/27 22:09:39 by sjacki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= 		cube3d
-FLAG			=		-Wall -Wextra -Werror
+FLAG			=		-Wall -Wextra -Werror -g
 
 SRC				=		base/cube3d.c parser/parser.c
 

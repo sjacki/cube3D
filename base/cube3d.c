@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:22:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/27 19:30:23 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/27 22:16:06 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ int main(int argc, char **argv)
             ft_putstr_fd("Не удалось считать сцену\n", 1);
             return (-1);
         }
-        parser(fd);
+        if (!(parser(fd)))
+        {
+            ft_putstr_fd("Не валидный конфиг файл\n", 1);
+            return (-1);  
+        }
     }
     else if (argc < 2)
         ft_putstr_fd("Не подана сцена\n", 1);
