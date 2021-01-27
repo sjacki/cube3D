@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 20:26:29 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/26 19:54:40 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/27 19:29:25 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ char		*ft_strjoin(char const *s1, char const *s2)
 		walk1++;
 	}
 	ptr[walk] = '\0';
+	free((void*)s1);
 	return (ptr);
 }

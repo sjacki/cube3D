@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sjacki <sjacki@student-21.school.ru>       +#+  +:+       +#+        */
+/*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:04:30 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/09 08:35:00 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/27 19:00:01 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		find_n(int *flag_rest, char **line, char **buf, char **rest)
 
 int		gnl_return(size_t read_bite, char **rest, int flag_rest, char **buf)
 {
-	if (read_bite || ft_strlen(*rest) || flag_rest)
+	if (read_bite || flag_rest || ft_strlen(*rest))
 	{
 		free(*buf);
 		return (1);

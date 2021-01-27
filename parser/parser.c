@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 22:00:25 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/26 22:06:20 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/27 19:26:49 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 
 int             parser(int fd)
 {
-    ft_printf("fd is: %d\n", fd);
+    char    *line;
+
+    while (get_next_line(fd, &line))
+    {
+        ft_printf ("%s\n", line);
+        free (line);
+    }
+    ft_printf ("%s\n", line);
+    free (line);
     return (1);
 }
