@@ -6,18 +6,14 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 22:00:25 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/28 00:25:06 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/28 17:08:47 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cube3d.h"
 
-static int      parser_conf(char *line, t_struct *config)
+static int      parser_resolution(char *line, t_struct *config)
 {
-    while (*line == ' ')
-        line++;
-    if (*line == 'R')
-    {
         line++;
         while (*line == ' ')
             line++;
@@ -41,7 +37,28 @@ static int      parser_conf(char *line, t_struct *config)
             return (1);
         else
             return (0);
-    }
+}
+
+static int      parser_no(char *line, t_struct *config)
+{
+    (void)config;
+    line++;
+    while (*line == ' ')
+        line++;
+    
+    return (1);
+}
+
+static int      parser_conf(char *line, t_struct *config)
+{
+    while (*line == ' ')
+        line++;
+    if (*line == 'R')
+        if (!parser_resolution(line, config))
+            return (0);
+    if (*line == 'N' && *(line + 1) == 'O')
+        if (!parser_no(line, config))
+            return (0);
     return (1);
 }
 
@@ -57,6 +74,7 @@ int             parser(int fd)
            free (line);
            return (0);
         }
+        free (line);
     }
     ft_printf("width: %d\nheight: %d\n", config.R_WIDTH, config.R_HEIGHT);
     return (1);
