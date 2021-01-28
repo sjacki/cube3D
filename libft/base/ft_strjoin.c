@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 20:26:29 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/27 19:29:25 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/28 17:47:38 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ char		*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	walk1 = 0;
 	walk = ft_strlen(s1) + ft_strlen(s2);
-	ptr = (char *)malloc(walk * sizeof(char) + 1);
-	if (ptr == NULL)
+	if (!(ptr = (char *)malloc(walk * sizeof(char) + 1)))
 		return (NULL);
 	walk = 0;
 	while (s1[walk])

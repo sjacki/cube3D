@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/28 17:17:31 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/28 18:41:32 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,23 @@
 # include "../libft/header/libft.h"
 # include <fcntl.h>
 
-typedef struct  s_struct
+typedef struct	s_struct
 {
-    int         r_width;
-    int         r_height;
-    char        *no;
-    char        *so;
-    char        *we;
-    char        *ea;
-    char        *s;
-    int         f[2];
-    int         c[2];
+	int			r_width;
+	int			r_height;
+	char		*no_texture;
+	char		*so_texture;
+	char		*we_texture;
+	char		*ea_texture;
+	char		*s_texture;
+	int			floor_color[3];
+	int			ceilling_color[3];
+	size_t		mp5;
 }				t_struct;
-int             parser(int fd);
+int				parser(int fd);
+int				parser_texture_no(char *line, t_struct *config);
+int				parser_texture_so(char *line, t_struct *config);
+int				parser_texture_we(char *line, t_struct *config);
+int				parser_texture_ea(char *line, t_struct *config);
+int				parser_texture_s(char *line, t_struct *config);
 #endif
