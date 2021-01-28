@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/28 17:17:03 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/28 17:17:31 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct  s_struct
 {
-    int      r_width;
+    int         r_width;
     int         r_height;
     char        *no;
     char        *so;
