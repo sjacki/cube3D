@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_texture.c                                   :+:      :+:    :+:   */
+/*   ft_parser_texture.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 18:06:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/28 18:50:08 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/29 20:24:54 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		parser_texture_no(char *line, t_struct *config)
 {
 	line += 2;
-	while (*line == ' ')
+	while (*line == ' ' || *line == '	')
 		line++;
 	if (*line == '.')
 		config->no_texture = ft_strdup(line);
@@ -31,7 +31,7 @@ int		parser_texture_no(char *line, t_struct *config)
 int		parser_texture_so(char *line, t_struct *config)
 {
 	line += 2;
-	while (*line == ' ')
+	while (*line == ' ' || *line == '	')
 		line++;
 	if (*line == '.')
 		config->so_texture = ft_strdup(line);
@@ -47,7 +47,7 @@ int		parser_texture_so(char *line, t_struct *config)
 int		parser_texture_we(char *line, t_struct *config)
 {
 	line += 2;
-	while (*line == ' ')
+	while (*line == ' ' || *line == '	')
 		line++;
 	if (*line == '.')
 		config->we_texture = ft_strdup(line);
@@ -63,7 +63,7 @@ int		parser_texture_we(char *line, t_struct *config)
 int		parser_texture_ea(char *line, t_struct *config)
 {
 	line += 2;
-	while (*line == ' ')
+	while (*line == ' ' || *line == '	')
 		line++;
 	if (*line == '.')
 		config->ea_texture = ft_strdup(line);
@@ -79,7 +79,7 @@ int		parser_texture_ea(char *line, t_struct *config)
 int		parser_texture_s(char *line, t_struct *config)
 {
 	line++;
-	while (*line == ' ')
+	while (*line == ' ' || *line == '	')
 		line++;
 	if (*line == '.')
 		config->s_texture = ft_strdup(line);

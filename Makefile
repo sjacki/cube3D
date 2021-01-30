@@ -6,16 +6,16 @@
 #    By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 20:21:38 by sjacki            #+#    #+#              #
-#    Updated: 2021/01/28 18:09:08 by sjacki           ###   ########.fr        #
+#    Updated: 2021/01/28 20:03:58 by sjacki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= 		cube3d
 FLAG			=		-Wall -Wextra -Werror -g
 
-SRC				=		base/cube3d.c \
+SRC				=		base/ft_cube3d.c \
 						\
-						parser/parser.c parser/parser_texture.c
+						parser/ft_parser.c parser/ft_parser_texture.c
 
 MAKE_LIBFT		=		cd libft && make
 

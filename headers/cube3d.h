@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/28 18:41:32 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/29 19:46:12 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ typedef struct	s_struct
 	int			ceilling_color[3];
 	size_t		mp5;
 }				t_struct;
-int				parser(int fd);
+
+int				parser(int fd, t_struct *config);
 int				parser_texture_no(char *line, t_struct *config);
 int				parser_texture_so(char *line, t_struct *config);
 int				parser_texture_we(char *line, t_struct *config);
