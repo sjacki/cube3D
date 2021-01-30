@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:22:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/29 20:18:56 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/30 14:47:33 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ int				main(int argc, char **argv)
 	int			fd;
 	t_struct	config;
 
+	config.argv1 = argv[1];
 	if (argc == 2)
 	{
-		if ((fd = open(argv[1], O_RDONLY)) < 0)
+		if ((fd = open(config.argv1, O_RDONLY)) < 0)
 		{
 			ft_putstr_fd("Не удалось открыть конфиг\n", 1);
 			return (-1);

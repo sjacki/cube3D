@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 22:00:25 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/29 20:24:15 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/30 14:46:56 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,9 @@ static int		parser_conf(char *line, t_struct *config)
 {
 	while (*line == ' ' || *line == '	')
 		line++;
-	if (*line == '1' && config->mp5 != 8)
-	{
-		ft_putstr_fd("не все аргументы были найдены\n", 1);
-		return (0);
-	}
+	if (*line == '1')
+		if (config->mp5 != 8 && ft_putstr_fd("не все парам. были найдены\n", 1))
+			return (0);
 	if (*line == 'R' && !parser_resolution(line, config))
 	{
 		ft_putstr_fd("не правильноe разрешение\n", 1);
@@ -131,8 +129,9 @@ static int		parser_conf(char *line, t_struct *config)
 int				parser(int fd, t_struct *config)
 {
 	char		*line;
-	int err_gnl;
+	int			err_gnl;
 
+	config->conf_count = 0;
 	config->mp5 = 0;
 	while ((err_gnl = get_next_line(fd, &line)))
 	{
@@ -143,9 +142,15 @@ int				parser(int fd, t_struct *config)
 			free(line);
 			return (0);
 		}
+		if (config->mp5 == 8)
+			break ;
 		free(line);
+		config->conf_count++;
 	}
 	free(line);
+	close(fd);
+	if (!parser_map(config) && ft_putstr_fd("не валидна карта", 1))
+		return (0);
 	ft_printf("resolution: %d x %d\n", config->r_width, config->r_height);
 	ft_printf("texture NO: %s\n", config->no_texture);
 	ft_printf("texture SO: %s\n", config->so_texture);

@@ -6,7 +6,7 @@
 #    By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 20:21:38 by sjacki            #+#    #+#              #
-#    Updated: 2021/01/28 20:03:58 by sjacki           ###   ########.fr        #
+#    Updated: 2021/01/30 14:32:26 by sjacki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FLAG			=		-Wall -Wextra -Werror -g
 
 SRC				=		base/ft_cube3d.c \
 						\
-						parser/ft_parser.c parser/ft_parser_texture.c
+						parser/ft_parser.c		parser/ft_parser_texture.c		parser/ft_parser_map.c
 
 MAKE_LIBFT		=		cd libft && make
 
