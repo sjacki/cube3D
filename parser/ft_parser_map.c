@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:29:29 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/03 03:52:30 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/03 21:04:45 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,39 @@ static int	parser_end_map(char *line, char **map, int longer_line)
 	return (1);
 }
 
+static int	cor_env(char **map, int x, int y)
+{
+	int		a;
+	int		b;
+	char	*notcorrect;
+	char	*valid;
+
+	valid = "02NSEW";
+	notcorrect = "	 +";
+	a = -1;
+	b = -1;
+	if (ft_strrchr(valid, map[x][y]))
+	{
+		if (y == 0 && ft_putstr_fd("карта не валидна\n", 1))
+			return (0);
+		while (a + b != 4)
+		{
+			b = -1;
+			while (b != 2)
+			{
+				if (ft_strrchr(notcorrect, map[x + a][y + b]))
+				{
+					ft_putstr_fd("карта не валидна\n", 1);
+					return (0);
+				}
+				b++;
+			}
+			a++;
+		}
+	}
+	return (1);
+}
+
 static int	p_gnl_map(t_struct *config, char *line, char **map, int longer_line)
 {
 	int			y;
@@ -44,7 +77,7 @@ static int	p_gnl_map(t_struct *config, char *line, char **map, int longer_line)
 		}
 		*map = ft_strjoin(*map, line);
 		y = ft_strlen(line);
-		while (longer_line + 2 > ++y)
+		while (longer_line + 2 > ++y && ft_strlen(line))
 			*map = ft_strjoin(*map, "+");
 		*map = ft_strjoin(*map, "\n");
 	}
@@ -54,22 +87,32 @@ static int	p_gnl_map(t_struct *config, char *line, char **map, int longer_line)
 
 static int	valid_map(t_struct *config, char **map)
 {
-	int		horz;
-	int		vertic;
-	int		horz_b;
-	int		vertic_b;
+	int		x;
+	int		y;
+	char	*correct;
 
-
-	horz = 0;
-	vertic = 0;
-	while (ft_arrlen(map) > horz)
+	x = 0;
+	y = 0;
+	correct = " 	+102NSEW";
+	while (map[x])
 	{
-		ft_printf("%s\n", map[horz]);
-		horz++;
+		y = 0;
+		while (map[x][y])
+		{
+			if (ft_strrchr(correct, map[x][y]))
+			{
+				if (!cor_env(map, x, y))
+					return (0);
+			}
+			else
+			{
+				ft_putstr_fd("не опознаный символ в карте\n", 1);
+				return (0);
+			}
+			y++;
+		}
+		x++;
 	}
-		
-	horz_b = horz;
-	vertic_b = vertic;
 	config->map = map;
 	return (1);
 }
@@ -86,21 +129,18 @@ int			parser_map(t_struct *config, int longer_line)
 	fd = open(config->argv1, O_RDONLY);
 	while ((err_gnl = get_next_line(fd, &line)))
 	{
-		if (err_gnl < 0 && ft_putstr_fd("не удалось считать файл", 1))
+		if (err_gnl < 0 && ft_putstr_fd("не удалось считать файл\n", 1))
 			return (0);
 		if (!p_gnl_map(config, line, &map, longer_line))
 		{
-			ft_putstr_fd("не удалось выделить память под карту", 1);
+			ft_putstr_fd("не удалось выделить память под карту\n", 1);
 			return (0);
 		}
 		config->x++;
 	}
 	parser_end_map(line, &map, longer_line);
 	if (!valid_map(config, ft_split(map, '\n')))
-	{
-		ft_putstr_fd("не правильная карта", 1);
 		return (0);
-	}
 	free(map);
 	return (1);
 }

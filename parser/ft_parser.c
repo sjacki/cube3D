@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 22:00:25 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/03 03:42:35 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/03 19:20:46 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int				parser(int fd, t_struct *config)
 	}
 	free(line);
 	close(fd);
-	if (!parser_map(config, longer_line) && ft_putstr_fd("не валидна карта", 1))
+	if (!parser_map(config, longer_line))
 		return (0);
 	ft_printf("resolution: %d x %d\n", config->r_width, config->r_height);
 	ft_printf("texture NO: %s\n", config->no_texture);
