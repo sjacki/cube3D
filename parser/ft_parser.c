@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 22:00:25 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/30 14:46:56 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/03 03:42:35 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,26 +130,28 @@ int				parser(int fd, t_struct *config)
 {
 	char		*line;
 	int			err_gnl;
+	int			longer_line;
 
+	longer_line = 0;
 	config->conf_count = 0;
 	config->mp5 = 0;
 	while ((err_gnl = get_next_line(fd, &line)))
 	{
 		if (err_gnl == -1 && ft_putstr_fd("не удалось считать файл", 1))
 			return (-1);
-		if (!(parser_conf(line, config)))
-		{
-			free(line);
-			return (0);
-		}
-		if (config->mp5 == 8)
-			break ;
+		if (config->mp5 != 8 && ++config->conf_count)
+			if (!(parser_conf(line, config)))
+			{
+				free(line);
+				return (0);
+			}
+		if (longer_line < (int)ft_strlen(line) && config->mp5 == 8)
+			longer_line = ft_strlen(line);
 		free(line);
-		config->conf_count++;
 	}
 	free(line);
 	close(fd);
-	if (!parser_map(config) && ft_putstr_fd("не валидна карта", 1))
+	if (!parser_map(config, longer_line) && ft_putstr_fd("не валидна карта", 1))
 		return (0);
 	ft_printf("resolution: %d x %d\n", config->r_width, config->r_height);
 	ft_printf("texture NO: %s\n", config->no_texture);

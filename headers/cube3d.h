@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/30 14:46:42 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/03 03:52:13 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ typedef struct	s_struct
 {
 	int			r_width;
 	int			r_height;
+	size_t			x;
 	char		*no_texture;
 	char		*so_texture;
 	char		*we_texture;
 	char		*ea_texture;
 	char		*s_texture;
 	char		*argv1;
+	char		**map;
 	int			floor_color[3];
 	int			ceilling_color[3];
 	size_t		mp5;
@@ -37,5 +39,5 @@ int				parser_texture_so(char *line, t_struct *config);
 int				parser_texture_we(char *line, t_struct *config);
 int				parser_texture_ea(char *line, t_struct *config);
 int				parser_texture_s(char *line, t_struct *config);
-int				parser_map(t_struct *config);
+int				parser_map(t_struct *config, int longer_line);
 #endif

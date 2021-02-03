@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 20:27:23 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/28 18:39:17 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/01/30 19:28:25 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,5 @@ int			powerdex(int power);
 char		**ft_split(char const *s, char c);
 int			ft_isalnum(int c);
 char		*ft_itoa(int n);
+int			ft_arrlen(char **arr);
 #endif

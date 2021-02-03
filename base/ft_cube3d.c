@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:22:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/30 14:47:33 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/03 03:42:57 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 static void		free_struct(t_struct *config)
 {
+	int x;
+
+	x = 0;
 	if (config->ea_texture)
 		free(config->ea_texture);
 	if (config->no_texture)
@@ -24,6 +27,14 @@ static void		free_struct(t_struct *config)
 		free(config->so_texture);
 	if (config->s_texture)
 		free(config->s_texture);
+	while (x < ft_arrlen(config->map))
+	{
+		if (config->map + x)
+			free(config->map[x]);
+		x++;
+	}
+	if (config->map)
+		free(config->map);
 }
 
 int				main(int argc, char **argv)
@@ -48,5 +59,7 @@ int				main(int argc, char **argv)
 		return (-1);
 	}
 	free_struct(&config);
+	while (1)
+	{}
 	return (0);
 }

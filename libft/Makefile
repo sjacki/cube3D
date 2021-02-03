@@ -6,7 +6,7 @@
 #    By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 20:21:38 by sjacki            #+#    #+#              #
-#    Updated: 2021/01/26 19:52:19 by sjacki           ###   ########.fr        #
+#    Updated: 2021/01/30 19:29:29 by sjacki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC			=	base/ft_memset.c base/ft_bzero.c base/ft_memcpy.c base/ft_memccpy.c base
 				base/ft_strnstr.c \
 				base/ft_substr.c base/ft_strjoin.c base/ft_strtrim.c base/ft_split.c base/ft_itoa.c \
 				base/ft_strmapi.c base/ft_putchar_fd.c base/ft_putstr_fd.c base/ft_putendl_fd.c \
-				base/ft_putnbr_fd.c	\
+				base/ft_putnbr_fd.c base/ft_arrlen.c \
 				\
 				\
 				ft_printf/base/ft_printf.c 					ft_printf/parser/parser.c \
