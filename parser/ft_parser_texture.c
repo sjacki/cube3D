@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 18:06:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/01/29 20:24:54 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/06 23:34:13 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		parser_texture_no(char *line, t_struct *config)
 {
+	if (config->no_texture && ft_putstr_fd("повтр. появление NO тектуры\n", 1))
+		return (0);
 	line += 2;
 	while (*line == ' ' || *line == '	')
 		line++;
@@ -30,6 +32,8 @@ int		parser_texture_no(char *line, t_struct *config)
 
 int		parser_texture_so(char *line, t_struct *config)
 {
+	if (config->so_texture && ft_putstr_fd("повтр. появление SO тектуры\n", 1))
+		return (0);
 	line += 2;
 	while (*line == ' ' || *line == '	')
 		line++;
@@ -46,6 +50,8 @@ int		parser_texture_so(char *line, t_struct *config)
 
 int		parser_texture_we(char *line, t_struct *config)
 {
+	if (config->we_texture && ft_putstr_fd("повтр. появление WE тектуры\n", 1))
+		return (0);
 	line += 2;
 	while (*line == ' ' || *line == '	')
 		line++;
@@ -62,6 +68,8 @@ int		parser_texture_we(char *line, t_struct *config)
 
 int		parser_texture_ea(char *line, t_struct *config)
 {
+	if (config->ea_texture && ft_putstr_fd("повтр. появление EA тектуры\n", 1))
+		return (0);
 	line += 2;
 	while (*line == ' ' || *line == '	')
 		line++;
@@ -78,6 +86,8 @@ int		parser_texture_ea(char *line, t_struct *config)
 
 int		parser_texture_s(char *line, t_struct *config)
 {
+	if (config->s_texture && ft_putstr_fd("повторное появление S тектуры\n", 1))
+		return (0);
 	line++;
 	while (*line == ' ' || *line == '	')
 		line++;

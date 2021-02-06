@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 22:00:25 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/03 19:20:46 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/07 00:15:07 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,16 @@ static int		parser_ceilling_color(char *line, t_struct *config)
 		config->ceilling_color[x] = ft_atoi(line);
 		while (ft_isdigit(*line))
 			line++;
-		if (x == 2 && *line == '\0' && config->mp5++)
+		while (*line == ' ' || *line == '	')
+			line++;
+		if (x == 2 && *line == '\0' && ++config->mp5 && ++config->flag_ceilling)
 			return (1);
 		if (*line == ',')
 			line++;
-		else
-		{
-			ft_putstr_fd("не правильно задан цвет потолка\n", 1);
+		else if (*line != ',' && ft_putstr_fd("не прав. цвет потолка\n", 1))
 			return (0);
-		}
+		while (*line == ' ' || *line == '	')
+			line++;
 		x++;
 	}
 	ft_putstr_fd("не правильно задан цвет потолка\n", 1);
@@ -53,15 +54,16 @@ static int		parser_floor_color(char *line, t_struct *config)
 		config->floor_color[x] = ft_atoi(line);
 		while (ft_isdigit(*line))
 			line++;
-		if (x == 2 && *line == '\0' && config->mp5++)
+		while (*line == ' ' || *line == '	')
+			line++;
+		if (x == 2 && *line == '\0' && ++config->mp5 && ++config->flag_floor)
 			return (1);
 		if (*line == ',')
 			line++;
-		else
-		{
-			ft_putstr_fd("не правильно задан цвет пола\n", 1);
+		else if (*line != ',' && ft_putstr_fd("не правильный цвет пола\n", 1))
 			return (0);
-		}
+		while (*line == ' ' || *line == '	')
+			line++;
 		x++;
 	}
 	ft_putstr_fd("не правильно задан цвет пола\n", 1);
@@ -70,6 +72,8 @@ static int		parser_floor_color(char *line, t_struct *config)
 
 static int		parser_resolution(char *line, t_struct *config)
 {
+	if (config->r_height && config->r_width)
+		return (0);
 	line++;
 	while (*line == ' ' || *line == '	')
 		line++;
@@ -89,11 +93,8 @@ static int		parser_resolution(char *line, t_struct *config)
 		line++;
 	while (*line == ' ' || *line == '	')
 		line++;
-	if (*line == '\0')
-	{
-		config->mp5++;
+	if (*line == '\0' && ++config->mp5)
 		return (1);
-	}
 	return (0);
 }
 
@@ -133,8 +134,6 @@ int				parser(int fd, t_struct *config)
 	int			longer_line;
 
 	longer_line = 0;
-	config->conf_count = 0;
-	config->mp5 = 0;
 	while ((err_gnl = get_next_line(fd, &line)))
 	{
 		if (err_gnl == -1 && ft_putstr_fd("не удалось считать файл", 1))
@@ -153,14 +152,5 @@ int				parser(int fd, t_struct *config)
 	close(fd);
 	if (!parser_map(config, longer_line))
 		return (0);
-	ft_printf("resolution: %d x %d\n", config->r_width, config->r_height);
-	ft_printf("texture NO: %s\n", config->no_texture);
-	ft_printf("texture SO: %s\n", config->so_texture);
-	ft_printf("texture WE: %s\n", config->we_texture);
-	ft_printf("texture EA: %s\n", config->ea_texture);
-	ft_printf("texture  S: %s\n", config->s_texture);
-	ft_printf("floor colr: %d.%d.%d\n", config->floor_color[0], config->floor_color[1], config->floor_color[2]);
-	ft_printf("ceill colr: %d.%d.%d\n", config->ceilling_color[0], config->ceilling_color[1], config->ceilling_color[2]);
-	ft_printf("mp5:  %u\n", config->mp5);
 	return (1);
 }

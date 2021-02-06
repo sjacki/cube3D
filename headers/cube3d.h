@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/03 03:52:13 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/06 23:29:52 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ typedef struct	s_struct
 {
 	int			r_width;
 	int			r_height;
-	size_t			x;
+	size_t		x;
+	char		player;
+	int			player_count;
 	char		*no_texture;
 	char		*so_texture;
 	char		*we_texture;
@@ -29,6 +31,8 @@ typedef struct	s_struct
 	char		**map;
 	int			floor_color[3];
 	int			ceilling_color[3];
+	size_t		flag_floor;
+	size_t		flag_ceilling;
 	size_t		mp5;
 	size_t		conf_count;
 }				t_struct;
@@ -40,4 +44,6 @@ int				parser_texture_we(char *line, t_struct *config);
 int				parser_texture_ea(char *line, t_struct *config);
 int				parser_texture_s(char *line, t_struct *config);
 int				parser_map(t_struct *config, int longer_line);
+int				cor_env_base(char **map, int x, int y);
+int				parser_end_map(char *line, char **map, int longer_line);
 #endif

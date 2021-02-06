@@ -6,58 +6,23 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:29:29 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/03 21:04:45 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/07 00:14:53 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cube3d.h"
 
-static int	parser_end_map(char *line, char **map, int longer_line)
-{
-	int y;
-
-	*map = ft_strjoin(*map, line);
-	y = ft_strlen(line);
-	while (longer_line + 2 > ++y)
-		*map = ft_strjoin(*map, "+");
-	*map = ft_strjoin(*map, "\n");
-	y = 0;
-	while (longer_line + 1 > y++)
-		*map = ft_strjoin(*map, "+");
-	*map = ft_strjoin(*map, "\n");
-	free(line);
-	return (1);
-}
-
 static int	cor_env(char **map, int x, int y)
 {
-	int		a;
-	int		b;
-	char	*notcorrect;
 	char	*valid;
 
 	valid = "02NSEW";
-	notcorrect = "	 +";
-	a = -1;
-	b = -1;
 	if (ft_strrchr(valid, map[x][y]))
 	{
 		if (y == 0 && ft_putstr_fd("карта не валидна\n", 1))
 			return (0);
-		while (a + b != 4)
-		{
-			b = -1;
-			while (b != 2)
-			{
-				if (ft_strrchr(notcorrect, map[x + a][y + b]))
-				{
-					ft_putstr_fd("карта не валидна\n", 1);
-					return (0);
-				}
-				b++;
-			}
-			a++;
-		}
+		if (!cor_env_base(map, x, y))
+			return (0);
 	}
 	return (1);
 }
@@ -72,16 +37,47 @@ static int	p_gnl_map(t_struct *config, char *line, char **map, int longer_line)
 		if (config->conf_count == config->x)
 		{
 			while (longer_line + 1 > y++)
-				*map = ft_strjoin(*map, "+");
+				*map = ft_strjoin(*map, " ");
 			*map = ft_strjoin(*map, "\n");
+		}
+		if (!ft_strlen(line))
+		{
+			while (longer_line + 1 > y++)
+				line = ft_strjoin(line, " ");
 		}
 		*map = ft_strjoin(*map, line);
 		y = ft_strlen(line);
 		while (longer_line + 2 > ++y && ft_strlen(line))
-			*map = ft_strjoin(*map, "+");
+			*map = ft_strjoin(*map, " ");
 		*map = ft_strjoin(*map, "\n");
 	}
 	free(line);
+	return (1);
+}
+
+static int	valid_map_base(t_struct *config, char **map, int x, int y)
+{
+	char	*correct;
+	char	*player;
+
+	if (config->flag_floor != 1 && ft_putstr_fd("ошибка цвета пола\n", 1))
+		return (0);
+	if (config->flag_ceilling != 1 && ft_putstr_fd("ошибка цвета потолка\n", 1))
+		return (0);
+	player = "NSEW";
+	correct = " 	+102NSEW";
+	if (ft_strrchr(player, map[x][y]) && config->player_count++)
+		config->player = map[x][y];
+	if (ft_strrchr(correct, map[x][y]))
+	{
+		if (!cor_env(map, x, y))
+			return (0);
+	}
+	else
+	{
+		ft_putstr_fd("не опознаный символ в карте\n", 1);
+		return (0);
+	}
 	return (1);
 }
 
@@ -89,29 +85,25 @@ static int	valid_map(t_struct *config, char **map)
 {
 	int		x;
 	int		y;
-	char	*correct;
 
 	x = 0;
 	y = 0;
-	correct = " 	+102NSEW";
+	config->player_count = 0;
 	while (map[x])
 	{
 		y = 0;
 		while (map[x][y])
 		{
-			if (ft_strrchr(correct, map[x][y]))
-			{
-				if (!cor_env(map, x, y))
-					return (0);
-			}
-			else
-			{
-				ft_putstr_fd("не опознаный символ в карте\n", 1);
+			if (!valid_map_base(config, map, x, y))
 				return (0);
-			}
 			y++;
 		}
 		x++;
+	}
+	if (config->player_count != 1)
+	{
+		ft_putstr_fd("неверное количество игроков\n", 1);
+		return (0);
 	}
 	config->map = map;
 	return (1);
