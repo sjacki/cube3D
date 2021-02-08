@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:22:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/08 17:53:11 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/08 19:58:19 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,14 @@ static void		free_struct(t_struct *config)
 
 static void		null_struct(t_struct *config)
 {
+	config->conf_count = 0;
+	config->map_trigger = 0;
 	config->trig = 0;
 	config->r_height = 0;
 	config->r_width = 0;
 	config->flag_floor = 0;
 	config->flag_ceilling = 0;
+	config->mp5 = 0;
 	config->ea_texture = NULL;
 	config->no_texture = NULL;
 	config->we_texture = NULL;
@@ -48,11 +51,8 @@ int				main(int argc, char **argv)
 	int			fd;
 	t_struct	config;
 
-	null_struct(&config);
 	config.argv1 = argv[1];
-	config.conf_count = 0;
-	config.map_trigger = 0;
-	config.mp5 = 0;
+	null_struct(&config);
 	if (argc == 2)
 	{
 		if ((fd = open(config.argv1, O_RDONLY)) < 0)

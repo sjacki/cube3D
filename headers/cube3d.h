@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/08 18:19:34 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/08 19:59:06 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ typedef struct	s_struct
 	size_t		map_trigger;
 }				t_struct;
 
+typedef struct	s_mlx
+{
+	void	*mlx;
+	void	*mlx_win;
+	void	*mlx_img;
+}				t_mlx;
+	
 int				parser(int fd, t_struct *config);
 int				ray_casting(t_struct *config);
 int				parser_texture_no(char *line, t_struct *config);
