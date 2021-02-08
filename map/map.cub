@@ -1,12 +1,11 @@
-R        1024    720 
-EA ./path_to_the_east_texture
-NO ./path_to_the_north_texture
-WE ./path_to_the_west_texture
+			R     				   1024 			   720 
+			EA 			./path_to_the_east_texture
+			NO ./path_to_the_north_texture
+			WE ./path_to_the_west_texture
 SO ./path_to_the_south_texture
 S  ./path_to_the_sprite_texture
-F 		220  ,	255   ,			0	
+F 		220    ,    255    ,   0	
 C 			225		,		30			,		0
-
         11111111111111111111
         1000000000111111
 111111111000000200000111
@@ -18,11 +17,9 @@ C 			225		,		30			,		0
 
 
 
-
-
 11111111111111111111111111111111111
 111101111111110111000111  111   111
-11110111111111011101011    111    11
+1111011111111011101011    111    11
 1100000S111110101110001    11111111
 100020000000000011011111
 1000001010000001101111

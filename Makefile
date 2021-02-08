@@ -6,14 +6,14 @@
 #    By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 20:21:38 by sjacki            #+#    #+#              #
-#    Updated: 2021/02/06 23:05:56 by sjacki           ###   ########.fr        #
+#    Updated: 2021/02/07 02:24:30 by sjacki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= 		cube3d
 FLAG			=		-Wall -Wextra -Werror -g
 
-SRC				=		base/ft_cube3d.c \
+SRC				=		base/ft_cube3d.c  base/base_ray_casting.c \
 						\
 						parser/ft_parser.c		parser/ft_parser_texture.c		parser/ft_parser_map.c \
 						parser/ft_parser_map_1.c

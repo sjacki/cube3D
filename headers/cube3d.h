@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/06 23:29:52 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/07 02:23:17 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct	s_struct
 }				t_struct;
 
 int				parser(int fd, t_struct *config);
+int				ray_casting(t_struct *config);
 int				parser_texture_no(char *line, t_struct *config);
 int				parser_texture_so(char *line, t_struct *config);
 int				parser_texture_we(char *line, t_struct *config);
