@@ -6,14 +6,14 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/08 17:52:20 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/08 18:19:34 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
 # include "../libft/header/libft.h"
-# include "../mlx/mlx.h"
+# include "mlx.h"
 # include <fcntl.h>
 
 typedef struct	s_struct
