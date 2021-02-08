@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:29:29 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/07 00:14:53 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/08 18:06:07 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,27 @@ static int	p_gnl_map(t_struct *config, char *line, char **map, int longer_line)
 	int			y;
 
 	y = 0;
-	if (config->conf_count <= config->x)
+	if (config->conf_count - 1 < config->x)
 	{
-		if (config->conf_count == config->x)
+		if (ft_strlen(line) > 0 && !config->trig && ++config->trig)
 		{
 			while (longer_line + 1 > y++)
 				*map = ft_strjoin(*map, " ");
 			*map = ft_strjoin(*map, "\n");
 		}
-		if (!ft_strlen(line))
+		if (!ft_strlen(line) && config->trig)
 		{
-			while (longer_line + 1 > y++)
-				line = ft_strjoin(line, " ");
+			ft_putstr_fd("в карте имеются пустые строки\n", 1);
+			return (0);
 		}
 		*map = ft_strjoin(*map, line);
 		y = ft_strlen(line);
 		while (longer_line + 2 > ++y && ft_strlen(line))
 			*map = ft_strjoin(*map, " ");
-		*map = ft_strjoin(*map, "\n");
+		if (config->trig)
+			*map = ft_strjoin(*map, "\n");
+		free(line);
 	}
-	free(line);
 	return (1);
 }
 
@@ -65,7 +66,7 @@ static int	valid_map_base(t_struct *config, char **map, int x, int y)
 	if (config->flag_ceilling != 1 && ft_putstr_fd("ошибка цвета потолка\n", 1))
 		return (0);
 	player = "NSEW";
-	correct = " 	+102NSEW";
+	correct = " +102NSEW";
 	if (ft_strrchr(player, map[x][y]) && config->player_count++)
 		config->player = map[x][y];
 	if (ft_strrchr(correct, map[x][y]))
@@ -81,7 +82,7 @@ static int	valid_map_base(t_struct *config, char **map, int x, int y)
 	return (1);
 }
 
-static int	valid_map(t_struct *config, char **map)
+static int	vmap(t_struct *config, char **map)
 {
 	int		x;
 	int		y;
@@ -124,14 +125,10 @@ int			parser_map(t_struct *config, int longer_line)
 		if (err_gnl < 0 && ft_putstr_fd("не удалось считать файл\n", 1))
 			return (0);
 		if (!p_gnl_map(config, line, &map, longer_line))
-		{
-			ft_putstr_fd("не удалось выделить память под карту\n", 1);
 			return (0);
-		}
 		config->x++;
 	}
-	parser_end_map(line, &map, longer_line);
-	if (!valid_map(config, ft_split(map, '\n')))
+	if (!endmap(line, &map, longer_line) || !vmap(config, ft_split(map, '\n')))
 		return (0);
 	free(map);
 	return (1);

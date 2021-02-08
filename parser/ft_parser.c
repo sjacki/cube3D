@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 22:00:25 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/07 00:15:07 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/08 17:21:38 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static int		parser_ceilling_color(char *line, t_struct *config)
 
 	x = 0;
 	line++;
-	while (*line == ' ' || *line == '	')
+	while (*line == ' ')
 		line++;
 	while (x < 3 && ft_isdigit(*line))
 	{
 		config->ceilling_color[x] = ft_atoi(line);
 		while (ft_isdigit(*line))
 			line++;
-		while (*line == ' ' || *line == '	')
+		while (*line == ' ')
 			line++;
 		if (x == 2 && *line == '\0' && ++config->mp5 && ++config->flag_ceilling)
 			return (1);
@@ -33,7 +33,7 @@ static int		parser_ceilling_color(char *line, t_struct *config)
 			line++;
 		else if (*line != ',' && ft_putstr_fd("не прав. цвет потолка\n", 1))
 			return (0);
-		while (*line == ' ' || *line == '	')
+		while (*line == ' ')
 			line++;
 		x++;
 	}
@@ -47,14 +47,14 @@ static int		parser_floor_color(char *line, t_struct *config)
 
 	x = 0;
 	line++;
-	while (*line == ' ' || *line == '	')
+	while (*line == ' ')
 		line++;
 	while (x < 3 && ft_isdigit(*line))
 	{
 		config->floor_color[x] = ft_atoi(line);
 		while (ft_isdigit(*line))
 			line++;
-		while (*line == ' ' || *line == '	')
+		while (*line == ' ')
 			line++;
 		if (x == 2 && *line == '\0' && ++config->mp5 && ++config->flag_floor)
 			return (1);
@@ -62,7 +62,7 @@ static int		parser_floor_color(char *line, t_struct *config)
 			line++;
 		else if (*line != ',' && ft_putstr_fd("не правильный цвет пола\n", 1))
 			return (0);
-		while (*line == ' ' || *line == '	')
+		while (*line == ' ')
 			line++;
 		x++;
 	}
@@ -75,7 +75,7 @@ static int		parser_resolution(char *line, t_struct *config)
 	if (config->r_height && config->r_width)
 		return (0);
 	line++;
-	while (*line == ' ' || *line == '	')
+	while (*line == ' ')
 		line++;
 	if (ft_isdigit(*line))
 		config->r_width = ft_atoi(line);
@@ -83,7 +83,7 @@ static int		parser_resolution(char *line, t_struct *config)
 		return (0);
 	while (ft_isdigit(*line))
 		line++;
-	while (*line == ' ' || *line == '	')
+	while (*line == ' ')
 		line++;
 	if (ft_isdigit(*line))
 		config->r_height = ft_atoi(line);
@@ -91,7 +91,7 @@ static int		parser_resolution(char *line, t_struct *config)
 		return (0);
 	while (ft_isdigit(*line))
 		line++;
-	while (*line == ' ' || *line == '	')
+	while (*line == ' ')
 		line++;
 	if (*line == '\0' && ++config->mp5)
 		return (1);
@@ -100,9 +100,9 @@ static int		parser_resolution(char *line, t_struct *config)
 
 static int		parser_conf(char *line, t_struct *config)
 {
-	while (*line == ' ' || *line == '	')
+	while (*line == ' ')
 		line++;
-	if (*line == '1')
+	if (ft_strrchr("102", *line) && ++config->map_trigger)
 		if (config->mp5 != 8 && ft_putstr_fd("не все парам. были найдены\n", 1))
 			return (0);
 	if (*line == 'R' && !parser_resolution(line, config))
@@ -138,7 +138,7 @@ int				parser(int fd, t_struct *config)
 	{
 		if (err_gnl == -1 && ft_putstr_fd("не удалось считать файл", 1))
 			return (-1);
-		if (config->mp5 != 8 && ++config->conf_count)
+		if ((config->mp5 != 8 || !config->map_trigger) && ++config->conf_count)
 			if (!(parser_conf(line, config)))
 			{
 				free(line);

@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 23:03:41 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/06 23:34:39 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/08 18:05:54 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			cor_env_base(char **map, int x, int y)
 	int		b;
 	char	*notcorrect;
 
-	notcorrect = "	 ";
+	notcorrect = " ";
 	a = -1;
 	b = -1;
 	while (a + b != 4)
@@ -38,19 +38,19 @@ int			cor_env_base(char **map, int x, int y)
 	return (1);
 }
 
-int			parser_end_map(char *line, char **map, int longer_line)
+int			endmap(char *line, char **map, int longer_line)
 {
 	int y;
 
 	*map = ft_strjoin(*map, line);
-	y = ft_strlen(line);
+	if (!(y = ft_strlen(line)) && ft_putstr_fd("в конце карты \\n\n", 1))
+		return (0);
 	while (longer_line + 2 > ++y)
 		*map = ft_strjoin(*map, " ");
 	*map = ft_strjoin(*map, "\n");
 	y = 0;
 	while (longer_line + 1 > y++)
 		*map = ft_strjoin(*map, " ");
-	*map = ft_strjoin(*map, "\n");
 	free(line);
 	return (1);
 }

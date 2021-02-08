@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:22:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/07 00:17:20 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/08 17:53:11 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,11 @@ static void		free_struct(t_struct *config)
 		free(config->so_texture);
 	if (config->s_texture)
 		free(config->s_texture);
-	while (x < ft_arrlen(config->map))
-	{
-		if (config->map + x)
-			free(config->map[x]);
-		x++;
-	}
-	if (config->map)
-		free(config->map);
 }
 
 static void		null_struct(t_struct *config)
 {
+	config->trig = 0;
 	config->r_height = 0;
 	config->r_width = 0;
 	config->flag_floor = 0;
@@ -58,6 +51,7 @@ int				main(int argc, char **argv)
 	null_struct(&config);
 	config.argv1 = argv[1];
 	config.conf_count = 0;
+	config.map_trigger = 0;
 	config.mp5 = 0;
 	if (argc == 2)
 	{
@@ -66,7 +60,9 @@ int				main(int argc, char **argv)
 			ft_putstr_fd("Не удалось открыть конфиг\n", 1);
 			return (-1);
 		}
-		if (!parser(fd, &config) && !ray_casting(&config))
+		if (!parser(fd, &config))
+			return (-1);
+		if (!ray_casting(&config))
 			return (-1);
 	}
 	else
