@@ -6,7 +6,7 @@
 #    By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 20:21:38 by sjacki            #+#    #+#              #
-#    Updated: 2021/02/08 19:13:39 by sjacki           ###   ########.fr        #
+#    Updated: 2021/02/13 19:10:33 by sjacki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,4 +45,4 @@ re: fclean all
 
 run: all
 	clear
-	./$(NAME) map/map.cub
+	./$(NAME) map/map.cub | cat -e

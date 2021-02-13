@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 22:00:25 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/08 17:21:38 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/13 19:21:25 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int				parser(int fd, t_struct *config)
 				free(line);
 				return (0);
 			}
-		if (longer_line < (int)ft_strlen(line) && config->mp5 == 8)
+		if (longer_line < (int)ft_strlen(line) && config->map_trigger)
 			longer_line = ft_strlen(line);
 		free(line);
 	}

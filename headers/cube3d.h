@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/08 19:59:06 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/13 21:56:59 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ typedef struct	s_struct
 typedef struct	s_mlx
 {
 	void	*mlx;
-	void	*mlx_win;
+	void	*mlx_win_2d;
+	void	*mlx_win_3d;
 	void	*mlx_img;
+	int		square_color;
 }				t_mlx;
 	
 int				parser(int fd, t_struct *config);
