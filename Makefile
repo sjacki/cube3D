@@ -6,17 +6,24 @@
 #    By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 20:21:38 by sjacki            #+#    #+#              #
-#    Updated: 2021/02/13 19:10:33 by sjacki           ###   ########.fr        #
+#    Updated: 2021/02/15 19:11:37 by sjacki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= 		cube3d
 FLAG			=		-Wall -Wextra -Werror -g
 
-SRC				=		base/ft_cube3d.c  base/ft_ray_casting.c \
+SRC				=		base/ft_cube3d.c  \
+						base/ft_ray_casting.c \
 						\
-						parser/ft_parser.c		parser/ft_parser_texture.c		parser/ft_parser_map.c \
-						parser/ft_parser_map_1.c
+						parser/ft_parser.c \
+						parser/ft_parser_texture.c \
+						parser/ft_parser_map.c \
+						parser/ft_parser_map_1.c \
+						\
+						3d/ft_draw_map.c \
+						3d/ft_contr_pl.c \
+						3d/ft_hook.c
 
 MAKE_LIBFT		=		cd libft && make
 

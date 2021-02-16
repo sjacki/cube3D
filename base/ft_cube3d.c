@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:22:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/08 19:58:19 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/16 07:42:32 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ static void		null_struct(t_struct *config)
 	config->flag_floor = 0;
 	config->flag_ceilling = 0;
 	config->mp5 = 0;
+	config->fl_w = 0;
 	config->ea_texture = NULL;
 	config->no_texture = NULL;
 	config->we_texture = NULL;
 	config->so_texture = NULL;
 	config->s_texture = NULL;
+	config->fl_find_pl = 0;
+	config->speed = 4;
 }
 
 int				main(int argc, char **argv)
