@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 22:00:25 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/13 19:21:25 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/17 08:15:59 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int		parser_conf(char *line, t_struct *config)
 {
 	while (*line == ' ')
 		line++;
-	if (ft_strrchr("102", *line) && ++config->map_trigger)
+	if (ft_strlen(line) && ft_strrchr("102", *line) && ++config->map_trigger)
 		if (config->mp5 != 8 && ft_putstr_fd("не все парам. были найдены\n", 1))
 			return (0);
 	if (*line == 'R' && !parser_resolution(line, config))

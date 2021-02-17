@@ -6,7 +6,7 @@
 /*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 23:03:41 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/08 18:05:54 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/02/17 09:05:55 by sjacki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,31 @@ int			endmap(char *line, char **map, int longer_line)
 {
 	int y;
 
-	*map = ft_strjoin(*map, line);
+	if (!(*map = ft_strjoin(*map, line)))
+	{
+		ft_putstr_fd("Error\nMalloc error\n", 1);
+		exit(1);
+	}
 	if (!(y = ft_strlen(line)) && ft_putstr_fd("в конце карты \\n\n", 1))
-		return (0);
+		exit(1);
 	while (longer_line + 2 > ++y)
-		*map = ft_strjoin(*map, " ");
-	*map = ft_strjoin(*map, "\n");
+		if (!(*map = ft_strjoin(*map, " ")))
+		{
+			ft_putstr_fd("Error\nMalloc error\n", 1);
+			exit(1);
+		}
+	if (!(*map = ft_strjoin(*map, "\n")))
+	{
+		ft_putstr_fd("Error\nMalloc error\n", 1);
+		exit(1);
+	}
 	y = 0;
 	while (longer_line + 1 > y++)
-		*map = ft_strjoin(*map, " ");
+		if (!(*map = ft_strjoin(*map, " ")))
+		{
+			ft_putstr_fd("Error\nMalloc error\n", 1);
+			exit(1);
+		}
 	free(line);
 	return (1);
 }
