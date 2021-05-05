@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/04 18:32:37 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/05 05:18:00 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <math.h>
+
+ typedef struct s_texture
+ {
+	void    *tex;
+	char    *adr;
+	int      width;
+	int      height;
+	int      bpp;
+	int      line_len;
+	int      iend;
+ }				t_texture;
  
  typedef struct	s_raycast
 {
@@ -36,6 +47,8 @@
 	double 		deldistx;//deltaDistX;
     double 		deldisty;//deltaDistY;
 	double		walldist;//perwalldist
+	double		oldvx;// oldDirX
+	double 		oldpx;//oldPlaneX
 	int			mx;//mapx
 	int			my;//mapy
     int			walkx;//stepX;
@@ -45,6 +58,7 @@
 	int			lenline;//lineHeight
 	int			draws;//drawStart
 	int			drawe;//drawEnd
+	int			x;
 	double		ftime;//frame time
 	double		movespeed;//moveSpeed;
 	double		rotentionspeed;//rotSpeed;
@@ -96,11 +110,13 @@ typedef struct	s_struct
 	int			r_ray;
 	int			hud_scale;
 	int			px_size;
-	void		*tex_no;
-	void		*tex_so;
-	void		*tex_we;
-	void		*tex_ea;
+	t_texture	*tex_no;
+	t_texture	*tex_so;
+	t_texture	*tex_we;
+	t_texture	*tex_ea;
 	void		*tex_s;
+	int			tex_h;
+	int			tex_w;
 	t_raycast	*ray;
 }				t_struct;
 	

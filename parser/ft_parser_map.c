@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:29:29 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/04 01:29:28 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/04 23:32:03 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	p_gnl_map(t_struct *config, char *line, char **map, int longer_line)
 	return (1);
 }
 
-static int	valid_map_base(t_struct *config, char **map, int x, int y)
+static void	valid_map_base(t_struct *config, char **map, int x, int y)
 {
 	char	*correct;
 	char	*player;
@@ -102,7 +102,6 @@ Ceiling color is not valid\n", 1))
 		ft_putstr_fd("Error\nMap have not valid character\n", 1);
 		exit(1);
 	}
-	return (1);
 }
 
 static int	vmap(t_struct *config, char **map)
