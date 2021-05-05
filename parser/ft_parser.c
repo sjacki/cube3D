@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 22:00:25 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/17 08:15:59 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/05/02 00:14:00 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int				parser(int fd, t_struct *config)
 	while ((err_gnl = get_next_line(fd, &line)))
 	{
 		if (err_gnl == -1 && ft_putstr_fd("не удалось считать файл", 1))
-			return (-1);
+			exit(1);
 		if ((config->mp5 != 8 || !config->map_trigger) && ++config->conf_count)
 			if (!(parser_conf(line, config)))
 			{

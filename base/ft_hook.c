@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hook.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:07:06 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/16 05:34:02 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/05/01 00:17:12 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			anpress_key(int keycode, t_struct *config)
 		config->fl_q = 0;
 	if (keycode == 14 || keycode == 124)
 		config->fl_e = 0;
-	ft_printf("%d\n", keycode);
+	printf("%d\n", keycode);
 	return (keycode);
 }
 
@@ -46,6 +46,5 @@ int			press_key(int keycode, t_struct *config)
 		config->fl_q = 1;
 	if (keycode == 14 || keycode == 124)
 		config->fl_e = 1;
-	ft_printf("%d\n", keycode);
 	return (keycode);
 }

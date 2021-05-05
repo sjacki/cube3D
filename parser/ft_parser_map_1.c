@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser_map_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 23:03:41 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/17 09:05:55 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/03/10 00:07:11 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int			cor_env_base(char **map, int x, int y)
 		{
 			if (ft_strrchr(notcorrect, map[x + a][y + b]))
 			{
-				ft_putstr_fd("карта не валидна\n", 1);
-				return (0);
+				ft_putstr_fd("Error\nMap is not valid\n", 1);
+				exit(1);
 			}
 			b++;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/16 07:53:45 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/05/04 18:32:37 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,60 @@
 # include "../libft/header/libft.h"
 # include "mlx.h"
 # include <fcntl.h>
+# include <stdio.h>
+# include <math.h>
  
+ typedef struct	s_raycast
+{
+	double 		vx;//dirx
+	double		vy;//diry
+	double 		px;//planex
+	double 		py;//planey
+	double 		frame;//time
+	double 		dframe;        //oldTime
+	double		speed;        //moveSpeed;
+	double		camx;//cameraX
+	double		camy;//cameraY
+	double 		rayvx;//rayDirX
+	double 		rayvy;//rayDirY
+	double 		distx;//sideDistX;
+    double 		disty;//sideDistY;
+	double 		deldistx;//deltaDistX;
+    double 		deldisty;//deltaDistY;
+	double		walldist;//perwalldist
+	int			mx;//mapx
+	int			my;//mapy
+    int			walkx;//stepX;
+    int			walky;//stepY;
+    int			flag;//hit = 0;
+    int			walks;//side;
+	int			lenline;//lineHeight
+	int			draws;//drawStart
+	int			drawe;//drawEnd
+	double		ftime;//frame time
+	double		movespeed;//moveSpeed;
+	double		rotentionspeed;//rotSpeed;
+}				t_raycast;
+
 typedef struct	s_struct
 {
+	int			x_hud_2d_map;
 	int			r_width;
 	int			r_height;
 	size_t		x;
-	char		player;
 	int			player_count;
 	char		*no_texture;
 	char		*so_texture;
 	char		*we_texture;
 	char		*ea_texture;
 	char		*s_texture;
+	char		v_pl;
 	char		*argv1;
 	char		**map;
 	int			floor_color[3];
 	int			ceilling_color[3];
+	int			f_color;
+	int			c_color;
 	size_t		flag_floor;
 	size_t		flag_ceilling;
 	size_t		mp5;
@@ -42,9 +79,8 @@ typedef struct	s_struct
 	void		*mlx_win_3d;
 	void		*mlx_img;
 	int			square_color;
-	int			x_pl;
-	int			y_pl;
-    char		v_pl;
+	double		x_pl;
+	double		y_pl;
     char		*addr;
     int			bits_per_pixel;
     int			line_length;
@@ -56,12 +92,20 @@ typedef struct	s_struct
 	int			fl_q;
 	int			fl_e;
 	int			fl_find_pl;
-	int			speed;
+	double		speed;
 	int			r_ray;
+	int			hud_scale;
+	int			px_size;
+	void		*tex_no;
+	void		*tex_so;
+	void		*tex_we;
+	void		*tex_ea;
+	void		*tex_s;
+	t_raycast	*ray;
 }				t_struct;
 	
 int				parser(int fd, t_struct *config);
-int				ray_casting(t_struct *config);
+int				ft_mlx(t_struct *config);
 int				parser_texture_no(char *line, t_struct *config);
 int				parser_texture_so(char *line, t_struct *config);
 int				parser_texture_we(char *line, t_struct *config);
@@ -79,4 +123,5 @@ int				anpress_key(int keycode, t_struct *config);
 int				press_key(int keycode, t_struct *config);
 int				close_win(t_struct *config);
 void			base_ray_dir(t_struct *config);
+void			alg(t_struct *config);
 #endif

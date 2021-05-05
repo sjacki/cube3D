@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cube3d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:22:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/16 07:42:32 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/05/04 00:34:08 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,16 @@ static void		null_struct(t_struct *config)
 	config->so_texture = NULL;
 	config->s_texture = NULL;
 	config->fl_find_pl = 0;
-	config->speed = 4;
+	config->speed = 0.5;
+	config->hud_scale = 4;
 }
 
 int				main(int argc, char **argv)
 {
 	int			fd;
 	t_struct	config;
+  	t_raycast raycast;
+	config.ray = &raycast;
 
 	config.argv1 = argv[1];
 	null_struct(&config);
@@ -60,18 +63,16 @@ int				main(int argc, char **argv)
 	{
 		if ((fd = open(config.argv1, O_RDONLY)) < 0)
 		{
-			ft_putstr_fd("Не удалось открыть конфиг\n", 1);
-			return (-1);
+			ft_putstr_fd("Error\nСould not open configuration\n", 1);
+			exit(1);
 		}
-		if (!parser(fd, &config))
-			return (-1);
-		if (!ray_casting(&config))
-			return (-1);
+		parser(fd, &config);
+		ft_mlx(&config);
 	}
 	else
 	{
-		ft_putstr_fd("неверное количесто аргументов\n", 1);
-		return (-1);
+		ft_putstr_fd("Error\nNot valid count config\n", 1);
+		exit(1);
 	}
 	free_struct(&config);
 	return (0);

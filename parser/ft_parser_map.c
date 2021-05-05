@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sjacki <sjacki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:29:29 by sjacki            #+#    #+#             */
-/*   Updated: 2021/02/17 09:09:05 by sjacki           ###   ########.fr       */
+/*   Updated: 2021/05/04 01:29:28 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ static int	cor_env(char **map, int x, int y)
 	if (ft_strrchr(valid, map[x][y]))
 	{
 		if (y == 0 && ft_putstr_fd("Error\nMap is not valid\n", 1))
-			return (0);
-		if (!cor_env_base(map, x, y))
-			return (0);
+			exit(1);
+		cor_env_base(map, x, y);
 	}
 	return (1);
 }
@@ -83,23 +82,25 @@ static int	valid_map_base(t_struct *config, char **map, int x, int y)
 
 	if (config->flag_floor != 1 && ft_putstr_fd("Error\n\
 Floor color is not valid\n", 1))
-		return (0);
+		exit(1);
 	if (config->flag_ceilling != 1 && ft_putstr_fd("Error\n\
 Ceiling color is not valid\n", 1))
-		return (0);
+		exit(1);
 	player = "NSEW";
 	correct = " +102NSEW";
-	if (ft_strrchr(player, map[x][y]) && config->player_count++)
-		config->player = map[x][y];
-	if (ft_strrchr(correct, map[x][y]))
+	if (ft_strrchr(player, map[x][y]))
 	{
-		if (!cor_env(map, x, y))
-			return (0);
+		config->player_count++;
+		config->x_pl = x + 0.5f;
+		config->y_pl = y + 0.5f;
+		config->v_pl = map[x][y];
 	}
+	if (ft_strrchr(correct, map[x][y]))
+		cor_env(map, x, y);
 	else
 	{
 		ft_putstr_fd("Error\nMap have not valid character\n", 1);
-		return (0);
+		exit(1);
 	}
 	return (1);
 }
@@ -117,8 +118,7 @@ static int	vmap(t_struct *config, char **map)
 		y = 0;
 		while (map[x][y])
 		{
-			if (!valid_map_base(config, map, x, y))
-				return (0);
+			valid_map_base(config, map, x, y);
 			y++;
 		}
 		x++;
@@ -126,7 +126,7 @@ static int	vmap(t_struct *config, char **map)
 	if (config->player_count != 1)
 	{
 		ft_putstr_fd("Error\nMap have not correct count players\n", 1);
-		return (0);
+		exit(1);
 	}
 	config->map = map;
 	return (1);
