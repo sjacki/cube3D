@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "__locale": "c",
-        "cube3d.h": "c"
-    }
+		"__locale": "c",
+		"cube3d.h": "c",
+		"chrono": "c"
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 00:17:35 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/05 16:42:00 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/06 19:04:10 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,13 @@ int					close_win(t_struct *config)
 void				verLine(int x, int draws, int drawe, int color, t_struct *config)
 {
 	int z;
-
+	(void)color;
 	z = 0;
 	while (z <= config->r_height)
 	{
-		if (z < draws)
+		if (z <= draws)
 			my_put_px(config, x, z, config->c_color);
-		if (z >= draws && z <= drawe)
-			my_put_px(config, x, z, color);
-		if (z > drawe)
+		if (z >= drawe)
 			my_put_px(config, x, z, config->f_color);
 		z++;
 	}
@@ -149,9 +147,38 @@ int					ft_loop_hook(t_struct *config)
 									config->r_height);
 	config->addr = mlx_get_data_addr(config->mlx_img, &config->bits_per_pixel,
 									&config->line_length, &config->endian);
+	config->tex_ea->tex = mlx_xpm_file_to_image(config->mlx, config->ea_texture,
+												&config->tex_ea->width,
+												&config->tex_ea->height);
+	config->tex_ea->adr = mlx_get_data_addr(config->tex_ea->tex,
+											&config->tex_ea->bpp,
+											&config->tex_ea->line_len,
+											&config->tex_ea->iend);
+/* 	config->tex_no->tex = mlx_xpm_file_to_image(config->mlx, config->no_texture,
+												&config->tex_no->width,
+												&config->tex_no->height);
+	config->tex_no->adr = mlx_get_data_addr(config->tex_no->tex,
+											&config->tex_no->bpp,
+											&config->tex_no->line_len,
+											&config->tex_no->iend); */
+/* 	config->tex_so->tex = mlx_xpm_file_to_image(config->mlx, config->so_texture,
+												&config->tex_so->width,
+												&config->tex_so->height);
+	config->tex_so->adr = mlx_get_data_addr(config->tex_so->tex,
+											&config->tex_so->bpp,
+											&config->tex_so->line_len,
+											&config->tex_so->iend);
+	config->tex_we->tex = mlx_xpm_file_to_image(config->mlx, config->we_texture,
+												&config->tex_we->width,
+												&config->tex_we->height);
+	config->tex_we->adr = mlx_get_data_addr(config->tex_we->tex,
+											&config->tex_we->bpp,
+											&config->tex_we->line_len,
+											&config->tex_we->iend); */
 	while (config->ray->x < config->r_width)
 	{
 		ft_null_ray(config->ray);
+
 		config->ray->camx = 2 * config->ray->x / (double)config->r_width - 1;
 		config->ray->rayvx = config->ray->vx + config->ray->px
 							* config->ray->camx;
@@ -211,15 +238,52 @@ int					ft_loop_hook(t_struct *config)
 		else
 			config->ray->walldist = (config->ray->my - config->y_pl +
 							(1 - config->ray->walky) / 2) / config->ray->rayvy;
-		config->ray->lenline = (int)(config->r_height / config->ray->walldist);
+		config->ray->lenline = (int)(config->r_height / fabs(config->ray->walldist));
 		config->ray->draws = -config->ray->lenline / 2 + config->r_height / 2;
 		if (config->ray->draws < 0)
 			config->ray->draws = 0;
 		config->ray->drawe = config->ray->lenline / 2 + config->r_height / 2;
 		if (config->ray->drawe >= config->r_height)
 			config->ray->drawe = config->r_height - 1;
-		verLine(config->ray->x, config->ray->draws, config->ray->drawe,
-				0xB22222, config);
+		if (config->ray->walks == 0)
+			config->ray->wall_x = config->y_pl + config->ray->walldist * config->ray->rayvy;
+		else
+			config->ray->wall_x = config->x_pl + config->ray->walldist * config->ray->rayvx;
+		config->ray->wall_x -= floor(config->ray->wall_x);
+
+
+		config->ray->adr = config->tex_ea->adr;
+		config->ray->width = config->tex_ea->width;
+		config->ray->height = config->tex_ea->height;
+		config->ray->bpp = config->tex_ea->bpp;
+		config->ray->line_len = config->tex_ea->line_len;
+
+
+		config->ray->tex_x = (int)(config->ray->wall_x * (double)(config->ray->width));
+		if ((config->ray->walks == 0 && config->ray->rayvx > 0) ||\
+				(config->ray->walks == 1 && config->ray->rayvy < 0))
+			config->ray->tex_x = config->ray->width - config->ray->tex_x - 1;
+		if (config->ray->tex_x >= config->ray->width)
+			config->ray->tex_x = config->ray->width - 1;
+		else if (config->ray->tex_x < 0)
+			config->ray->tex_x = 0;
+		config->ray->step = 1.0 * config->ray->height / config->ray->lenline;
+		config->ray->tex_pos = (config->ray->draws - config->r_height / 2 + config->ray->lenline / 2) * config->ray->step;
+		config->ray->y = config->ray->draws - 1;
+		while (config->ray->y < config->ray->drawe)
+		{
+			config->ray->tex_y = (int)config->ray->tex_pos;
+			if (config->ray->tex_y >= config->ray->height)
+				config->ray->tex_y = config->ray->height - 1;
+			else if (config->ray->tex_y < 0)
+				config->ray->tex_y = 0;
+			config->ray->tex_pos += config->ray->step;
+			config->ray->color = (unsigned int*)(config->ray->adr + config->ray->line_len *
+			config->ray->tex_y + config->ray->tex_x * (config->ray->bpp / 8));
+			my_put_px(config, config->ray->x, config->ray->y, (int)*config->ray->color);
+			config->ray->y++;
+		}
+		verLine(config->ray->x, config->ray->draws, config->ray->drawe, 0xB22222, config);
 		config->ray->x++;
 	}
 	config->ray->x = 1;
@@ -366,17 +430,14 @@ void				ft_init(t_raycast *raycast, t_struct *config)
 						config->floor_color[1], config->floor_color[2]);
 	config->c_color = create_trgb(0, config->ceilling_color[0],
 					config->ceilling_color[1], config->ceilling_color[2]);
-/* 	t_texture tex_ea;
+ 	t_texture tex_ea;
 	t_texture tex_so;
 	t_texture tex_we;
-	t_texture tex_no; */
-/* 	config->tex_ea->tex = mlx_xpm_file_to_image(config->mlx, config->ea_texture,
-												&config->tex_ea->width,
-												&config->tex_ea->height);
-	config->tex_ea->adr = mlx_get_data_addr(config->tex_ea->tex,
-											&config->tex_ea->bpp,
-											&config->tex_ea->line_len,
-											&config->tex_ea->iend); */
+	t_texture tex_no;
+	config->tex_ea = &tex_ea;
+	config->tex_so = &tex_so;
+	config->tex_we = &tex_we;
+	config->tex_no = &tex_no;
 }
 
 int				ft_mlx(t_struct *config)

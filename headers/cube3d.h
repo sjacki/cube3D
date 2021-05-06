@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/05 05:18:00 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/06 03:06:13 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,24 @@
 	int			draws;//drawStart
 	int			drawe;//drawEnd
 	int			x;
+	int			y;
+	double		wall_x;
+	double		wall_y;
+	double		step;
+	double		tex_pos;
+	unsigned int	*color;
 	double		ftime;//frame time
 	double		movespeed;//moveSpeed;
 	double		rotentionspeed;//rotSpeed;
+	void    	*tex;
+	char    	*adr;
+	int      	width;
+	int      	height;
+	int      	bpp;
+	int      	line_len;
+	int      	iend;
+	int			tex_x;
+	int			tex_y;
 }				t_raycast;
 
 typedef struct	s_struct
