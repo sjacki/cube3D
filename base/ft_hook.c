@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:07:06 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/01 00:17:12 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/06 23:45:52 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int			anpress_key(int keycode, t_struct *config)
 		config->fl_q = 0;
 	if (keycode == 14 || keycode == 124)
 		config->fl_e = 0;
-	printf("%d\n", keycode);
 	return (keycode);
 }
 

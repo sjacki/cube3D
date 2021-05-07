@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/06 03:06:13 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/07 17:40:00 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@
 	int      iend;
  }				t_texture;
  
+ typedef struct	s_sprite
+{
+	int			*x_buf;
+	int			sprt_len;
+}				t_sprite;
+
+typedef struct	s_sortpos
+{
+	int			x;
+	int			y;
+}				t_sortpos;
+
  typedef struct	s_raycast
 {
 	double 		vx;//dirx
@@ -133,7 +145,11 @@ typedef struct	s_struct
 	int			tex_h;
 	int			tex_w;
 	t_raycast	*ray;
+	int			*x_spr;
+	int			*y_spr;
+	t_sprite	*sprite;
 }				t_struct;
+
 	
 int				parser(int fd, t_struct *config);
 int				ft_mlx(t_struct *config);

@@ -56,8 +56,6 @@ static void	computation_distance(t_all *xlm, int collision, int x)
 	else
 		xlm->neo.dist =\
 		(xlm->neo.y - Y + (1 - xlm->neo.step_y) / 2) / xlm->neo.rdir_y;
-	if (xlm->sprite.spr_len)
-		xlm->sprite.wid_buf[x] = xlm->neo.dist;
 }
 
 static void	computation_side_step(t_all *xlm, int x)
