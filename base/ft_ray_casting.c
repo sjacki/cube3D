@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 00:17:35 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/07 19:02:36 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/10 18:08:43 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void				main_draw_map(t_struct *config)
 	if ((config->r_width / (ft_strlen(*config->map))) <
 		(size_t)(config->r_height / (ft_arrlen(config->map))))
 		size = ((config->r_width) / (ft_strlen(*config->map)));
-	size /= 3;
+	size /= 4;
 	config->px_size = size;
 	draw_map(config, size);
 }
@@ -188,6 +188,115 @@ void				ft_select_tex(t_struct *config)
 		ft_to_no_tex(config);
 	else if (config->ray->walks == 1 && config->ray->walky == 1)
 		ft_to_so_tex(config);
+}
+
+void				sort_sprite(t_struct *config)
+{
+	int x;
+
+	x = 0;
+	while (x < config->sprite->sprt_len)
+	{
+		config->sort[x].dist = pow(config->x_pl - config->sort[x].x, 2) + pow(config->y_pl - config->sort[x].y, 2);
+		x++;
+	}
+	int i;
+	int z;
+	t_sort temp;
+	i = 0;
+	z = 0;
+	while (i < config->sprite->sprt_len - 1)
+	{
+		while (z < config->sprite->sprt_len - 1)
+		{
+			if (config->sort[z].dist < config->sort[z + 1].dist)
+			{
+				temp = config->sort[z];
+				config->sort[z] = config->sort[z + 1];
+				config->sort[z + 1] = temp;
+			}
+			z++;
+		}
+		z = 0;
+		i++;
+	}
+}
+
+static int	draw_sprite(t_struct *config, int x, int y)
+{
+	unsigned int	*color;
+	int				y_t;
+	int				temp;
+
+	temp = (y - config->sprite->move_scr) * 256 -\
+	config->r_height / 2 * 256 + config->sprite->spr_hi * 128;
+	y_t = ((temp * config->sprite->height) / config->sprite->spr_hi) / 256;
+	y_t = y_t < 0 ? 0 : y_t;
+	color = (unsigned int*)(config->sprite->adr + config->sprite->line_len * y_t +\
+	config->sprite->x_t * (config->sprite->bpp / 8));
+	if ((int)*color != 0)
+		my_put_px(config, x, y, (int)*color);
+	return (1);
+}
+
+static void	computation_param_spr(t_struct *config, int i)
+{
+	config->sprite->spr_x = config->sort[i].x - config->x_pl;
+	config->sprite->spr_y = config->sort[i].y - config->y_pl;
+	config->sprite->inde = 1.0 / (config->ray->px * config->ray->vy -\
+	config->ray->vx * config->ray->py);
+	config->sprite->trans_x = config->sprite->inde * (config->ray->vy *\
+	config->sprite->spr_x - config->ray->vx * config->sprite->spr_y);
+	config->sprite->trans_y = config->sprite->inde * (-config->ray->py *\
+	config->sprite->spr_x + config->ray->px * config->sprite->spr_y);
+	config->sprite->spr_scr = (int)((config->r_width / 2) *\
+	(1 + config->sprite->trans_x / config->sprite->trans_y));
+	config->sprite->move_scr = (int)(0.0 / config->sprite->trans_y);
+	config->sprite->spr_hi = abs((int)(config->r_height / config->sprite->trans_y))\
+	/ 1;
+	config->sprite->draw_up_y = -config->sprite->spr_hi / 2 +\
+	config->r_height / 2 + config->sprite->move_scr;
+}
+
+static void	computation_draw_up_down(t_struct *config)
+{
+	if (config->sprite->draw_up_y < 0)
+		config->sprite->draw_up_y = 0;
+	config->sprite->draw_down_y = config->sprite->spr_hi / 2 +\
+	config->r_height / 2 + config->sprite->move_scr;
+	if (config->sprite->draw_down_y >= config->r_height)
+		config->sprite->draw_down_y = config->r_height - 1;
+	config->sprite->spr_wi = abs((int)(config->r_height / config->sprite->trans_y))\
+	/ 1;
+	config->sprite->draw_up_x = -config->sprite->spr_wi / 2 + config->sprite->spr_scr;
+	if (config->sprite->draw_up_x < 0)
+		config->sprite->draw_up_x = 0;
+	config->sprite->draw_down_x = config->sprite->spr_wi / 2 + config->sprite->spr_scr;
+	if (config->sprite->draw_down_x >= config->r_width)
+		config->sprite->draw_down_x = config->r_width - 1;
+}
+
+void		ft_draw_sprite(t_struct *config, int x, int y, int i)
+{
+	while (++i < config->sprite->sprt_len)
+	{
+		computation_param_spr(config, i);
+		computation_draw_up_down(config);
+		x = config->sprite->draw_up_x - 1;
+		while (++x < (config->sprite->draw_down_x - 1))
+		{
+			config->sprite->x_t = (int)(x - (-config->sprite->spr_wi / 2 +\
+			config->sprite->spr_scr)) * config->sprite->width / config->sprite->spr_wi;
+			config->sprite->x_t = config->sprite->x_t < 0 ? 0 : config->sprite->x_t;
+			if (config->sprite->trans_y > 0 && x > 0 && x < config->r_width &&\
+			config->sprite->trans_y < config->sprite->x_buf[x] + 1)
+			{
+				y = config->sprite->draw_up_y - 1;
+				while (++y < (config->sprite->draw_down_y - 1))
+					draw_sprite(config, x, y);
+			}
+		}
+	}
 }
 
 int					ft_loop_hook(t_struct *config)
@@ -301,6 +410,11 @@ int					ft_loop_hook(t_struct *config)
 		verLine(config->ray->x, config->ray->draws, config->ray->drawe, 0xB22222, config);
 		config->ray->x++;
 	}
+	if (config->sprite->sprt_len)
+	{
+		sort_sprite(config);
+		ft_draw_sprite(config, 0, 0, -1);
+	}
 	config->ray->x = 1;
 	config->ray->ftime = (config->ray->frame - config->ray->dframe) / 1000.0;
 	config->ray->movespeed = config->ray->ftime * 5.0;
@@ -407,12 +521,10 @@ void				ft_init(t_raycast *raycast, t_struct *config)
 	int			x;
 	int			y;
 	int			i;
-	t_sprite	sprite;
 	x = 0;
 	y = 0;
 	i = 0;
-	config->sprite = &sprite;
-	sprite.sprt_len = 0;
+	config->sprite->sprt_len = 0;
 	while (x < ft_arrlen(config->map))
 	{
 		while (y < (int)ft_strlen(*config->map))
@@ -424,10 +536,9 @@ void				ft_init(t_raycast *raycast, t_struct *config)
 		y = 0;
 		x++;
 	}
+	config->sort = (t_sort*)malloc(config->sprite->sprt_len * 32);
 	if (config->sprite->sprt_len)
 	{
-		config->x_spr = (int*)malloc(config->sprite->sprt_len * 4);
-		config->y_spr = (int*)malloc(config->sprite->sprt_len * 4);
 		x = 0;
 		while (x < ft_arrlen(config->map))
 		{
@@ -435,8 +546,8 @@ void				ft_init(t_raycast *raycast, t_struct *config)
 			{
 				if (config->map[x][y] == '2')
 				{
-					config->x_spr[i] = x;
-					config->y_spr[i] = y;
+					config->sort[i].x = x + 0.5;
+					config->sort[i].y = y + 0.5;
 					i++;
 				}
 				y++;
@@ -515,6 +626,13 @@ void				ft_init(t_raycast *raycast, t_struct *config)
 											&config->tex_we->bpp,
 											&config->tex_we->line_len,
 											&config->tex_we->iend);
+	config->sprite->tex = mlx_xpm_file_to_image(config->mlx, config->s_texture,
+												&config->sprite->width,
+												&config->sprite->height);
+	config->sprite->adr = mlx_get_data_addr(config->sprite->tex,
+											&config->sprite->bpp,
+											&config->sprite->line_len,
+											&config->sprite->iend);
 	config->f_color = create_trgb(0, config->floor_color[0],
 						config->floor_color[1], config->floor_color[2]);
 	config->c_color = create_trgb(0, config->ceilling_color[0],
@@ -523,10 +641,13 @@ void				ft_init(t_raycast *raycast, t_struct *config)
 
 int				ft_mlx(t_struct *config)
 {
-	t_texture tex_ea;
-	t_texture tex_we;
-	t_texture tex_so;
-	t_texture tex_no;
+	t_texture 	tex_ea;
+	t_texture 	tex_we;
+	t_texture 	tex_so;
+	t_texture 	tex_no;
+	t_sprite	sprite;
+	t_sort		*sort = NULL;
+	config->sort = sort;
 	config->mlx = mlx_init();
 	config->mlx_win_3d = mlx_new_window(config->mlx, config->r_width,
 											config->r_height, "Cub3D");
@@ -534,6 +655,7 @@ int				ft_mlx(t_struct *config)
 	config->tex_we = &tex_we;
 	config->tex_so = &tex_so;
 	config->tex_no = &tex_no;
+	config->sprite = &sprite;
 	ft_init(config->ray, config);
 	mlx_hook(config->mlx_win_3d, 2, 0, &press_key, config);
 	mlx_hook(config->mlx_win_3d, 3, 0, &anpress_key, config);

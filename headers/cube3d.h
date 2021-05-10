@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/07 17:40:00 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/10 17:30:51 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,39 @@
  
  typedef struct	s_sprite
 {
+	void    *tex;
+	char    *adr;
+	int      width;
+	int      height;
+	int      bpp;
+	int      line_len;
+	int      iend;
+
 	int			*x_buf;
 	int			sprt_len;
+	double		spr_x;
+	double		spr_y;
+	double		inde;
+	double		trans_x;
+	double		trans_y;
+	int			spr_scr;
+	double		spr_wi;
+	int			move_scr;
+	int			spr_hi;
+	double		draw_up_y;
+	double		draw_down_y;
+	double		draw_up_x;
+	double		draw_down_x;
+	int			x_t;
 }				t_sprite;
+
+typedef struct 	s_sort
+{
+	double x;
+	double y;
+	double dist;
+}				t_sort;
+
 
 typedef struct	s_sortpos
 {
@@ -145,8 +175,7 @@ typedef struct	s_struct
 	int			tex_h;
 	int			tex_w;
 	t_raycast	*ray;
-	int			*x_spr;
-	int			*y_spr;
+	t_sort		*sort;
 	t_sprite	*sprite;
 }				t_struct;
 
