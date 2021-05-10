@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:22:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/06 18:12:57 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/10 22:45:04 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void		free_struct(t_struct *config)
 
 static void		null_struct(t_struct *config)
 {
+	config->fl_screen = 0;
 	config->conf_count = 0;
 	config->map_trigger = 0;
 	config->trig = 0;
@@ -54,13 +55,25 @@ int				main(int argc, char **argv)
 {
 	int			fd;
 	t_struct	config;
-  	t_raycast raycast;
-	config.ray = &raycast;
+	t_raycast	raycast;
+	t_sprite	sprite;
 
+	config.ray = &raycast;
+	config.sprite = &sprite;
 	config.argv1 = argv[1];
 	null_struct(&config);
-	if (argc == 2)
+	if (argc == 2 || argc == 3)
 	{
+		if (argc == 3)
+		{
+			if (!ft_strncmp(argv[2], "--save", 6))
+				config.fl_screen = 1;
+			else
+			{
+				ft_putstr_fd("Error\nNot valid second argument\n", 1);
+				exit(1);
+			}
+		}
 		if ((fd = open(config.argv1, O_RDONLY)) < 0)
 		{
 			ft_putstr_fd("Error\nСould not open configuration\n", 1);

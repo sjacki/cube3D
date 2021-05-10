@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:29:29 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/04 23:32:03 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/10 21:06:41 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,7 @@ static int	p_gnl_map(t_struct *config, char *line, char **map, int longer_line)
 	y = 0;
 	if (config->conf_count - 1 <= config->x)
 	{
-		if (ft_strlen(line) > 0 && !config->trig && ++config->trig)
-		{
-			while (longer_line + 1 > y++)
-				if (!(*map = ft_strjoin(*map, " ")))
-				{
-					ft_putstr_fd("Error\nMalloc error\n", 1);
-					exit(1);
-				}
-			if (!(*map = ft_strjoin(*map, "\n")))
-			{
-				ft_putstr_fd("Error\nMalloc error\n", 1);
-				exit(1);
-			}
-		}
-		if (!ft_strlen(line) && config->trig)
-		{
-			ft_putstr_fd("Error\nMap have empty line\n", 1);
-			exit(1);
-		}
-		if (!(*map = ft_strjoin(*map, line)))
-		{
-			ft_putstr_fd("Error\nMalloc error\n", 1);
-			exit(1);
-		}
+		map_pars(config, line, map, longer_line);
 		y = ft_strlen(line);
 		while (longer_line + 2 > ++y && ft_strlen(line))
 			if (!(*map = ft_strjoin(*map, " ")))

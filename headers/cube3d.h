@@ -6,39 +6,39 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/10 17:30:51 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/10 23:31:35 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
 # include "../libft/header/libft.h"
+# include "../dy_mlx/mlx.h" 
 # include "mlx.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <math.h>
 
- typedef struct s_texture
- {
-	void    *tex;
-	char    *adr;
-	int      width;
-	int      height;
-	int      bpp;
-	int      line_len;
-	int      iend;
- }				t_texture;
- 
- typedef struct	s_sprite
+typedef struct	s_texture
 {
-	void    *tex;
-	char    *adr;
-	int      width;
-	int      height;
-	int      bpp;
-	int      line_len;
-	int      iend;
+	void	*tex;
+	char	*adr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_len;
+	int		iend;
+}				t_texture;
 
+typedef struct	s_sprite
+{
+	void		*tex;
+	char		*adr;
+	int			width;
+	int			height;
+	int			bpp;
+	int			line_len;
+	int			iend;
 	int			*x_buf;
 	int			sprt_len;
 	double		spr_x;
@@ -57,13 +57,12 @@
 	int			x_t;
 }				t_sprite;
 
-typedef struct 	s_sort
+typedef struct	s_sort
 {
-	double x;
-	double y;
-	double dist;
+	double		x;
+	double		y;
+	double		dist;
 }				t_sort;
-
 
 typedef struct	s_sortpos
 {
@@ -71,58 +70,60 @@ typedef struct	s_sortpos
 	int			y;
 }				t_sortpos;
 
- typedef struct	s_raycast
+typedef struct	s_raycast
 {
-	double 		vx;//dirx
-	double		vy;//diry
-	double 		px;//planex
-	double 		py;//planey
-	double 		frame;//time
-	double 		dframe;        //oldTime
-	double		speed;        //moveSpeed;
-	double		camx;//cameraX
-	double		camy;//cameraY
-	double 		rayvx;//rayDirX
-	double 		rayvy;//rayDirY
-	double 		distx;//sideDistX;
-    double 		disty;//sideDistY;
-	double 		deldistx;//deltaDistX;
-    double 		deldisty;//deltaDistY;
-	double		walldist;//perwalldist
-	double		oldvx;// oldDirX
-	double 		oldpx;//oldPlaneX
-	int			mx;//mapx
-	int			my;//mapy
-    int			walkx;//stepX;
-    int			walky;//stepY;
-    int			flag;//hit = 0;
-    int			walks;//side;
-	int			lenline;//lineHeight
-	int			draws;//drawStart
-	int			drawe;//drawEnd
-	int			x;
-	int			y;
-	double		wall_x;
-	double		wall_y;
-	double		step;
-	double		tex_pos;
+	double			vx;
+	double			vy;
+	double			px;
+	double			py;
+	double			frame;
+	double			dframe;
+	double			speed;
+	double			camx;
+	double			camy;
+	double			rayvx;
+	double			rayvy;
+	double			distx;
+	double			disty;
+	double			deldistx;
+	double			deldisty;
+	double			walldist;
+	double			oldvx;
+	double			oldpx;
+	double			wall_x;
+	double			wall_y;
+	double			step;
+	double			tex_pos;
+	double			ftime;
+	double			movespeed;
+	double			rotentionspeed;
+	int				mx;
+	int				my;
+	int				walkx;
+	int				walky;
+	int				flag;
+	int				walks;
+	int				lenline;
+	int				draws;
+	int				drawe;
+	int				x;
+	int				y;
+	int				width;
+	int				height;
+	int				bpp;
+	int				line_len;
+	int				iend;
+	int				tex_x;
+	int				tex_y;
 	unsigned int	*color;
-	double		ftime;//frame time
-	double		movespeed;//moveSpeed;
-	double		rotentionspeed;//rotSpeed;
-	void    	*tex;
-	char    	*adr;
-	int      	width;
-	int      	height;
-	int      	bpp;
-	int      	line_len;
-	int      	iend;
-	int			tex_x;
-	int			tex_y;
+	void			*tex;
+	char			*adr;
 }				t_raycast;
 
 typedef struct	s_struct
 {
+	int			fl_screen;
+	int			b;
 	int			x_hud_2d_map;
 	int			r_width;
 	int			r_height;
@@ -152,10 +153,10 @@ typedef struct	s_struct
 	int			square_color;
 	double		x_pl;
 	double		y_pl;
-    char		*addr;
-    int			bits_per_pixel;
-    int			line_length;
-    int			endian;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
 	int			fl_w;
 	int			fl_s;
 	int			fl_a;
@@ -179,7 +180,6 @@ typedef struct	s_struct
 	t_sprite	*sprite;
 }				t_struct;
 
-	
 int				parser(int fd, t_struct *config);
 int				ft_mlx(t_struct *config);
 int				parser_texture_no(char *line, t_struct *config);
@@ -200,4 +200,37 @@ int				press_key(int keycode, t_struct *config);
 int				close_win(t_struct *config);
 void			base_ray_dir(t_struct *config);
 void			alg(t_struct *config);
+void			ft_select_tex(t_struct *config);
+void			drw_spr(t_struct *config, int x, int y, int i);
+void			sort_sprite(t_struct *config, int x, int i, int z);
+void			move_ch(t_struct *config);
+void			move_w(t_struct *config);
+void			move_a(t_struct *config);
+void			move_d(t_struct *config);
+void			move_s(t_struct *config);
+void			main_draw_map(t_struct *config);
+void			drawpl(t_struct *config);
+int				create_trgb(int t, int r, int g, int b);
+void			draw_texture(t_struct *config);
+void			ray_4(t_struct *config);
+void			ray_3(t_struct *config);
+void			init_img(t_struct *config);
+void			init_var(t_struct *config);
+void			ver_line(int x, int draws, int drawe, t_struct *config);
+void			ft_null_ray(t_raycast *ray);
+void			ray_1(t_struct *config);
+void			ray_2(t_struct *config);
+void			spr(t_struct *config);
+void			init_time(t_struct *config);
+void			end_ray(t_struct *config);
+int				close_win(t_struct *config);
+void			count_spr(t_struct *config);
+void			pos_sprt(t_struct *config);
+void			ft_init_move_var(t_struct *config, t_raycast *raycast);
+void			ft_dir_pl_1(t_struct *config, t_raycast *raycast);
+void			ft_dir_pl_2(t_struct *config, t_raycast *raycast);
+void			ft_init_tex_1(t_struct *config);
+void			map_pars(t_struct *config, char *line, char **map,\
+							int longer_line);
+void			ft_resolution_screen(t_struct *config);
 #endif
