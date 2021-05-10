@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 23:30:47 by alexandr          #+#    #+#             */
-/*   Updated: 2021/05/11 01:54:16 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/11 02:45:18 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void			ft_resolution_screen(t_struct *config)
 	}
 	if (config->fl_screen && (config->r_width > wid || config->r_height > hi))
 	{
-		config->r_width = wid;
-		config->r_height = hi;
+		config->r_width = 6000;
+		config->r_height = 6000;
 	}
 }
 
