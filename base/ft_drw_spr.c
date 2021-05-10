@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 19:20:05 by alexandr          #+#    #+#             */
-/*   Updated: 2021/05/10 21:58:00 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/10 23:47:33 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void			drw_spr(t_struct *config, int x, int y, int i)
 			config->sprite->x_t = config->sprite->x_t < 0 ?\
 								0 : config->sprite->x_t;
 			if (config->sprite->trans_y > 0 && x > 0 && x < config->r_width &&\
-			config->sprite->trans_y < config->sprite->x_buf[x] + 0.5)
+			config->sprite->trans_y < config->sprite->x_buf[x] + 0.7)
 			{
 				y = config->sprite->draw_up_y - 1;
 				while (++y < (config->sprite->draw_down_y - 1))

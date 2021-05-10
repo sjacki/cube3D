@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 20:31:38 by alexandr          #+#    #+#             */
-/*   Updated: 2021/05/10 21:10:16 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/11 00:00:55 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void			init_time(t_struct *config)
 
 void			end_ray(t_struct *config)
 {
+	if (config->fl_screen)
+		ft_mk_screenshot(config);
 	mlx_put_image_to_window(config->mlx, config->mlx_win_3d,
 							config->mlx_img, 0, 0);
 	mlx_destroy_image(config->mlx, config->mlx_img);

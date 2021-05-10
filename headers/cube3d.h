@@ -6,14 +6,14 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/10 23:31:35 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/11 01:49:38 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
 # include "../libft/header/libft.h"
-# include "../dy_mlx/mlx.h" 
+# include "../dy_mlx/mlx.h"
 # include "mlx.h"
 # include <fcntl.h>
 # include <stdio.h>
@@ -233,4 +233,6 @@ void			ft_init_tex_1(t_struct *config);
 void			map_pars(t_struct *config, char *line, char **map,\
 							int longer_line);
 void			ft_resolution_screen(t_struct *config);
+void			ft_mk_screenshot(t_struct *config);
+void			ft_init_mlx(t_struct *config);
 #endif

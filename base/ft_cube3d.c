@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:22:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/10 22:45:04 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/11 01:45:56 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,31 @@ static void		null_struct(t_struct *config)
 	config->hud_scale = 4;
 }
 
+void			main_1(t_struct *config, int argc, char **argv)
+{
+	int		fd;
+
+	if (argc == 3)
+	{
+		if (!ft_strncmp(argv[2], "--save", 6))
+			config->fl_screen = 1;
+		else
+		{
+			ft_putstr_fd("Error\nNot valid second argument\n", 1);
+			exit(1);
+		}
+	}
+	if ((fd = open(config->argv1, O_RDONLY)) < 0)
+	{
+		ft_putstr_fd("Error\nСould not open configuration\n", 1);
+		exit(1);
+	}
+	parser(fd, config);
+	ft_mlx(config);
+}
+
 int				main(int argc, char **argv)
 {
-	int			fd;
 	t_struct	config;
 	t_raycast	raycast;
 	t_sprite	sprite;
@@ -64,23 +86,7 @@ int				main(int argc, char **argv)
 	null_struct(&config);
 	if (argc == 2 || argc == 3)
 	{
-		if (argc == 3)
-		{
-			if (!ft_strncmp(argv[2], "--save", 6))
-				config.fl_screen = 1;
-			else
-			{
-				ft_putstr_fd("Error\nNot valid second argument\n", 1);
-				exit(1);
-			}
-		}
-		if ((fd = open(config.argv1, O_RDONLY)) < 0)
-		{
-			ft_putstr_fd("Error\nСould not open configuration\n", 1);
-			exit(1);
-		}
-		parser(fd, &config);
-		ft_mlx(&config);
+		main_1(&config, argc, argv);
 	}
 	else
 	{

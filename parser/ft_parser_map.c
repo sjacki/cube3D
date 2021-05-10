@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:29:29 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/10 21:06:41 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/11 01:20:11 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int			parser_map(t_struct *config, int longer_line)
 		p_gnl_map(config, line, &map, longer_line);
 		config->x++;
 	}
+	close(fd);
 	endmap(line, &map, longer_line);
 	vmap(config, ft_split(map, '\n'));
 	free(map);

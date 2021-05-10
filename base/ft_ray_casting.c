@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 00:17:35 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/10 23:31:40 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/11 01:48:33 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,12 @@ int				ft_mlx(t_struct *config)
 	config->sort = sort;
 	config->mlx = mlx_init();
 	ft_resolution_screen(config);
-	if (!config->fl_screen)
-		config->mlx_win_3d = mlx_new_window(config->mlx, config->r_width,
-											config->r_height, "Cub3D");
+	ft_init_mlx(config);
 	config->tex_ea = &tex_ea;
 	config->tex_we = &tex_we;
 	config->tex_so = &tex_so;
 	config->tex_no = &tex_no;
 	ft_init(config->ray, config);
-	mlx_hook(config->mlx_win_3d, 2, 0, &press_key, config);
-	mlx_hook(config->mlx_win_3d, 3, 0, &anpress_key, config);
-	mlx_hook(config->mlx_win_3d, 17, 0, &close_win, config);
 	mlx_loop_hook(config->mlx, ft_loop_hook, config);
 	mlx_loop(config->mlx);
 	return (1);

@@ -6,7 +6,7 @@
 #    By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 20:21:38 by sjacki            #+#    #+#              #
-#    Updated: 2021/05/10 23:31:57 by alexandr         ###   ########.fr        #
+#    Updated: 2021/05/11 02:00:06 by alexandr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC				=		base/ft_cube3d.c  \
 						base/ft_other_fun.c \
 						base/ft_other_fun_1.c \
 						base/ft_other_fun_2.c \
+						base/ft_mk_screenshot.c \
 						\
 						parser/ft_parser.c \
 						parser/ft_parser_texture.c \
@@ -50,6 +51,8 @@ MOVE_DY_MLX		=		cd dy_mlx && mv libmlx.dylib ../
 
 REMOVE_DY_MLX	= 		rm -r libmlx.dylib
 
+REMOVE_SCREEN	=		rm -r screenshot/screen.bmp
+
 OBJ:= $(SRC:c=o)
 		
 %.o: %.c
@@ -69,6 +72,7 @@ clean:
 	$(MAKE_MLX_DY) clean
 	$(MAKE_LIBFT) clean
 	rm -f $(OBJ)
+	$(REMOVE_SCREEN)
 
 fclean: clean
 	$(MAKE_MLX) clean
@@ -80,4 +84,4 @@ re: fclean all
 
 run: all
 	clear
-	./$(NAME) map/map.cub | cat -e
+	./$(NAME) map/map.cub --save | cat -e
