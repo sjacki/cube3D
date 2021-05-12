@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 20:31:38 by alexandr          #+#    #+#             */
-/*   Updated: 2021/05/10 20:32:27 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/11 03:52:47 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void			ray_4(t_struct *config)
 	config->ray->step = 1.0 * config->ray->height / config->ray->lenline;
 	config->ray->tex_pos = (config->ray->draws - config->r_height\
 						/ 2 + config->ray->lenline / 2) * config->ray->step;
-	config->ray->y = config->ray->draws - 1;
+	config->ray->y = config->ray->draws;
 }
 
 void			ray_3(t_struct *config)

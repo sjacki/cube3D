@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 20:40:54 by alexandr          #+#    #+#             */
-/*   Updated: 2021/05/10 20:42:43 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/11 03:59:03 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int				close_win(t_struct *config)
 {
 	mlx_destroy_window(config->mlx, config->mlx_win_3d);
-	exit(1);
+	exit(0);
 	return (0);
 }
 
@@ -24,7 +24,7 @@ void			ver_line(int x, int draws, int drawe, t_struct *config)
 	int z;
 
 	z = 0;
-	while (z <= config->r_height)
+	while (z < config->r_height)
 	{
 		if (z <= draws)
 			my_put_px(config, x, z, config->c_color);

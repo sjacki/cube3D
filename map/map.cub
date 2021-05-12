@@ -1,11 +1,11 @@
-R   5000   5000
+R   1920 1080
 EA ./texture/purplestone.xpm
 NO ./texture/bluestone.xpm
 WE ./texture/colorstone.xpm
 SO ./texture/redbrick.xpm
-S  ./sprite/barrel.xpm
-F 0,0,100    
-C 47,79,79
+S ./sprite/barrel.xpm
+F 75,75,75
+C 47,79,255
 
 
 111111111111111111111111

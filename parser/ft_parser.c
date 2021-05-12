@@ -6,125 +6,105 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 22:00:25 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/10 22:28:47 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/12 11:25:47 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cube3d.h"
 
-static int		parser_ceilling_color(char *line, t_struct *config)
+void			parser_ceilling_color(char *line, t_struct *config, size_t x)
 {
-	size_t x;
-
-	x = 0;
 	line++;
+	if (*line != ' ')
+		ft_err("Error\nNot valid ceiling\n");
 	while (*line == ' ')
 		line++;
 	while (x < 3 && ft_isdigit(*line))
 	{
 		config->ceilling_color[x] = ft_atoi(line);
+		if (config->ceilling_color[x] > 255 || config->ceilling_color[x] < 0)
+			ft_err("Error\nNot valid ceiling\n");
 		while (ft_isdigit(*line))
 			line++;
 		while (*line == ' ')
 			line++;
 		if (x == 2 && *line == '\0' && ++config->mp5 && ++config->flag_ceilling)
-			return (1);
+			return ;
 		if (*line == ',')
 			line++;
-		else if (*line != ',' && ft_putstr_fd("Error\nNot valid ceiling\n", 1))
-			return (0);
+		else if (*line != ',')
+			ft_err("Error\nNot valid ceiling\n");
 		while (*line == ' ')
 			line++;
 		x++;
 	}
-	ft_putstr_fd("Error\nNot valid ceiling\n", 1);
-	return (0);
+	ft_err("Error\nNot valid ceiling\n");
 }
 
-static int		parser_floor_color(char *line, t_struct *config)
+void			parser_floor_color(char *line, t_struct *config, size_t x)
 {
-	size_t x;
-
-	x = 0;
 	line++;
+	if (*line != ' ')
+		ft_err("Error\nNot valid floor\n");
 	while (*line == ' ')
 		line++;
 	while (x < 3 && ft_isdigit(*line))
 	{
 		config->floor_color[x] = ft_atoi(line);
+		if (config->floor_color[x] > 255 || config->floor_color[x] < 0)
+			ft_err("Error\nNot valid floor\n");
 		while (ft_isdigit(*line))
 			line++;
 		while (*line == ' ')
 			line++;
 		if (x == 2 && *line == '\0' && ++config->mp5 && ++config->flag_floor)
-			return (1);
+			return ;
 		if (*line == ',')
 			line++;
-		else if (*line != ',' && ft_putstr_fd("Error\nNot valid floor\n", 1))
-			return (0);
+		else if (*line != ',')
+			ft_err("Error\nNot valid floor\n");
 		while (*line == ' ')
 			line++;
 		x++;
 	}
-	ft_putstr_fd("Error\nNot valid floor\n", 1);
-	return (0);
+	ft_err("Error\nNot valid floor\n");
 }
 
-static int		parser_resolution(char *line, t_struct *config)
+void			parser_resolution(char *line, t_struct *config, int i)
 {
-	if (config->r_height && config->r_width)
-		return (0);
-	line++;
-	while (*line == ' ')
-		line++;
-	if (ft_isdigit(*line))
-		config->r_width = ft_atoi(line);
-	else
-		return (0);
+	ft_res_1(config, &line);
+	ft_res_2(config, &line, 0);
 	while (ft_isdigit(*line))
 		line++;
 	while (*line == ' ')
 		line++;
 	if (ft_isdigit(*line))
-		config->r_height = ft_atoi(line);
+	{
+		while (ft_isdigit(line[i]))
+			i++;
+		ft_res_3(config, &line, i);
+	}
 	else
-		return (0);
+		ft_err("Error\nNot valid resolution\n");
+	if (config->r_height <= 0)
+		ft_err("Error\nNot valid resolution\n");
 	while (ft_isdigit(*line))
 		line++;
 	while (*line == ' ')
 		line++;
 	if (*line == '\0' && ++config->mp5)
-		return (1);
-	return (0);
+		return ;
+	ft_err("Error\nNot valid resolution\n");
 }
 
-static int		parser_conf(char *line, t_struct *config)
+static void		parser_conf(char *line, t_struct *config)
 {
+	size_t x;
+
+	x = ft_strlen(line);
 	while (*line == ' ')
 		line++;
-	if (ft_strlen(line) && ft_strrchr("102", *line) && ++config->map_trigger)
-		if (config->mp5 != 8 && ft_putstr_fd("Error\nNot vaalid conf.\n", 1))
-			return (0);
-	if (*line == 'R' && !parser_resolution(line, config))
-	{
-		ft_putstr_fd("Error\nNot valid resolution\n", 1);
-		return (0);
-	}
-	if (*line == 'N' && *(line + 1) == 'O' && !parser_texture_no(line, config))
-		return (0);
-	if (*line == 'S' && *(line + 1) == 'O' && !parser_texture_so(line, config))
-		return (0);
-	if (*line == 'W' && *(line + 1) == 'E' && !parser_texture_we(line, config))
-		return (0);
-	if (*line == 'E' && *(line + 1) == 'A' && !parser_texture_ea(line, config))
-		return (0);
-	if (*line == 'S' && *(line + 1) != 'O' && !parser_texture_s(line, config))
-		return (0);
-	if (*line == 'F' && !parser_floor_color(line, config))
-		return (0);
-	if (*line == 'C' && !parser_ceilling_color(line, config))
-		return (0);
-	return (1);
+	ft_pars_conf_2(config, line, x);
 }
 
 int				parser(int fd, t_struct *config)
@@ -139,11 +119,7 @@ int				parser(int fd, t_struct *config)
 		if (err_gnl == -1 && ft_putstr_fd("Error\nNot valid file\n", 1))
 			exit(1);
 		if ((config->mp5 != 8 || !config->map_trigger) && ++config->conf_count)
-			if (!(parser_conf(line, config)))
-			{
-				free(line);
-				return (0);
-			}
+			parser_conf(line, config);
 		if (longer_line < (int)ft_strlen(line) && config->map_trigger)
 			longer_line = ft_strlen(line);
 		free(line);

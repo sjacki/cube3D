@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:29:29 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/11 01:20:11 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/12 00:24:06 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static int	p_gnl_map(t_struct *config, char *line, char **map, int longer_line)
 			}
 		free(line);
 	}
+	else
+		free(line);
 	return (1);
 }
 
@@ -68,8 +70,8 @@ Ceiling color is not valid\n", 1))
 	if (ft_strrchr(player, map[x][y]))
 	{
 		config->player_count++;
-		config->x_pl = x + 0.5f;
-		config->y_pl = y + 0.5f;
+		config->x_pl = x + 0.33f;
+		config->y_pl = y + 0.33f;
 		config->v_pl = map[x][y];
 	}
 	if (ft_strrchr(correct, map[x][y]))

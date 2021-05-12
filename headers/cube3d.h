@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:25:50 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/11 01:49:38 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/12 02:44:10 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,4 +235,13 @@ void			map_pars(t_struct *config, char *line, char **map,\
 void			ft_resolution_screen(t_struct *config);
 void			ft_mk_screenshot(t_struct *config);
 void			ft_init_mlx(t_struct *config);
+void			ft_err(char *line);
+void			ft_not_valid_tex(t_struct *config);
+void			ft_pars_conf_2(t_struct *config, char *line, int x);
+void			parser_ceilling_color(char *line, t_struct *config, size_t x);
+void			parser_floor_color(char *line, t_struct *config, size_t x);
+void			parser_resolution(char *line, t_struct *config, int i);
+void			ft_res_1(t_struct *config, char **line);
+void			ft_res_2(t_struct *config, char **line, int i);
+void			ft_res_3(t_struct *config, char **line, int i);
 #endif

@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:22:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/11 01:45:56 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/12 01:32:33 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void			main_1(t_struct *config, int argc, char **argv)
 
 	if (argc == 3)
 	{
-		if (!ft_strncmp(argv[2], "--save", 6))
+		if (!ft_strncmp(argv[2], "--save", ft_strlen(argv[2])))
 			config->fl_screen = 1;
 		else
 		{
@@ -74,6 +74,20 @@ void			main_1(t_struct *config, int argc, char **argv)
 	ft_mlx(config);
 }
 
+void			cub_check(char **argv)
+{
+	int x;
+
+	x = 0;
+	while (argv[1][x] != '.')
+		x++;
+	if (ft_strncmp(argv[1] + x, ".cub", ft_strlen(argv[1]) - x))
+	{
+		ft_putstr_fd("Error\nNot valid conf. file\n", 1);
+		exit(1);
+	}
+}
+
 int				main(int argc, char **argv)
 {
 	t_struct	config;
@@ -86,6 +100,7 @@ int				main(int argc, char **argv)
 	null_struct(&config);
 	if (argc == 2 || argc == 3)
 	{
+		cub_check(argv);
 		main_1(&config, argc, argv);
 	}
 	else

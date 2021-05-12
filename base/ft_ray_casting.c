@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 00:17:35 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/11 01:48:33 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/12 00:37:56 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void			ft_init(t_raycast *raycast, t_struct *config)
 	ft_dir_pl_2(config, raycast);
 	ft_init_tex_1(config);
 	ft_init_tex_2(config);
+	ft_not_valid_tex(config);
 }
 
 int				ft_mlx(t_struct *config)
