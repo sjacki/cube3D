@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 01:11:27 by alexandr          #+#    #+#             */
-/*   Updated: 2021/05/12 11:25:08 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/12 22:15:42 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void			ft_pars_conf_2(t_struct *config, char *line, int x)
 	else if (*line == 'R')
 		parser_resolution(line, config, 0);
 	else if (*line == 'N' && *(line + 1) == 'O')
-		parser_texture_no(line, config);
+		parser_texture_no(line, config, 1);
 	else if (*line == 'S' && *(line + 1) == 'O')
-		parser_texture_so(line, config);
+		parser_texture_so(line, config, 1);
 	else if (*line == 'W' && *(line + 1) == 'E')
-		parser_texture_we(line, config);
+		parser_texture_we(line, config, 1);
 	else if (*line == 'E' && *(line + 1) == 'A')
-		parser_texture_ea(line, config);
+		parser_texture_ea(line, config, 1);
 	else if (*line == 'S' && *(line + 1) != 'O')
-		parser_texture_s(line, config);
+		parser_texture_s(line, config, 1);
 	else if (*line == 'F')
 		parser_floor_color(line, config, 0);
 	else if (*line == 'C')

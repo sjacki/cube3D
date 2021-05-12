@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:22:10 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/12 01:32:33 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/12 22:31:00 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,9 @@ void			cub_check(char **argv)
 {
 	int x;
 
-	x = 0;
-	while (argv[1][x] != '.')
-		x++;
-	if (ft_strncmp(argv[1] + x, ".cub", ft_strlen(argv[1]) - x))
+	x = ft_strlen(argv[1]) - 1;
+	if (argv[1][x] != 'b' || argv[1][x - 1] != 'u' || argv[1][x - 2] != 'c'\
+		|| argv[1][x - 4] == '.')
 	{
 		ft_putstr_fd("Error\nNot valid conf. file\n", 1);
 		exit(1);

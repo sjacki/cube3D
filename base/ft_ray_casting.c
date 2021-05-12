@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 00:17:35 by sjacki            #+#    #+#             */
-/*   Updated: 2021/05/12 00:37:56 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/12 20:30:39 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,9 @@ void			ft_init_tex_2(t_struct *config)
 	config->tex_we->tex = mlx_xpm_file_to_image(config->mlx, config->we_texture,
 												&config->tex_we->width,
 												&config->tex_we->height);
-	config->tex_we->adr = mlx_get_data_addr(config->tex_we->tex,
-											&config->tex_we->bpp,
-											&config->tex_we->line_len,
-											&config->tex_we->iend);
 	config->sprite->tex = mlx_xpm_file_to_image(config->mlx, config->s_texture,
 												&config->sprite->width,
 												&config->sprite->height);
-	config->sprite->adr = mlx_get_data_addr(config->sprite->tex,
-											&config->sprite->bpp,
-											&config->sprite->line_len,
-											&config->sprite->iend);
 	config->f_color = create_trgb(0, config->floor_color[0],
 						config->floor_color[1], config->floor_color[2]);
 	config->c_color = create_trgb(0, config->ceilling_color[0],

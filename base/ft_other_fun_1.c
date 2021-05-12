@@ -6,7 +6,7 @@
 /*   By: alexandr <alexandr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 20:44:27 by alexandr          #+#    #+#             */
-/*   Updated: 2021/05/10 20:45:22 by alexandr         ###   ########.fr       */
+/*   Updated: 2021/05/12 20:28:54 by alexandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,22 +95,10 @@ void			ft_init_tex_1(t_struct *config)
 	config->tex_ea->tex = mlx_xpm_file_to_image(config->mlx, config->ea_texture,
 												&config->tex_ea->width,
 												&config->tex_ea->height);
-	config->tex_ea->adr = mlx_get_data_addr(config->tex_ea->tex,
-											&config->tex_ea->bpp,
-											&config->tex_ea->line_len,
-											&config->tex_ea->iend);
 	config->tex_no->tex = mlx_xpm_file_to_image(config->mlx, config->no_texture,
 												&config->tex_no->width,
 												&config->tex_no->height);
-	config->tex_no->adr = mlx_get_data_addr(config->tex_no->tex,
-											&config->tex_no->bpp,
-											&config->tex_no->line_len,
-											&config->tex_no->iend);
 	config->tex_so->tex = mlx_xpm_file_to_image(config->mlx, config->so_texture,
 												&config->tex_so->width,
 												&config->tex_so->height);
-	config->tex_so->adr = mlx_get_data_addr(config->tex_so->tex,
-											&config->tex_so->bpp,
-											&config->tex_so->line_len,
-											&config->tex_so->iend);
 }
